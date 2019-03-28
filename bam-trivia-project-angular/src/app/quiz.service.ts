@@ -12,11 +12,11 @@ export class QuizService {
   // public QUIZZES_API = `${this.API}/Quizzes`;
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Quiz[]> {
+  getQuizzes(): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(`${this.API}/Quizzes`)
       .pipe(
         catchError(this.handleError)
-      );;
+      );
   }
 
   // get(id: string) {
