@@ -3,7 +3,7 @@
 // public int Difficulty { get; set; }
 // public string Category { get; set; }
 
-export default class Quiz {
+export class Quiz {
     id: number;
     maxScore: number;
     difficulty: number;

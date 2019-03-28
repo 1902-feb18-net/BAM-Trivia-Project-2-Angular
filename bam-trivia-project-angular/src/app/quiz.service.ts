@@ -3,28 +3,25 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from "rxjs/internal/operators";
 
-import Quiz from './models/quiz';
+import { Quiz } from './models/quiz';
 
-@Injectable({
-  providedIn: 'root'
-})
-
-export default class QuizService {
+@Injectable({ providedIn: 'root' })
+export class QuizService {
   public API = 'https://localhost:44338/api';
   // for now, let's just grab all quizzes
-  public QUIZZES_API = `${this.API}/Quizzes`;
+  // public QUIZZES_API = `${this.API}/Quizzes`;
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Array<Quiz>> {
-    return this.http.get<Array<Quiz>>(this.QUIZZES_API)
+  getAll(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(`${this.API}/Quizzes`)
       .pipe(
         catchError(this.handleError)
       );;
   }
 
-  get(id: string) {
-    return this.http.get(`${this.QUIZZES_API}/${id}`);
-  }
+  // get(id: string) {
+  //   return this.http.get(`${this.QUIZZES_API}/${id}`);
+  // }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
