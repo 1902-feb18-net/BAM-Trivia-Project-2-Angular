@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { AnswerListComponent } from './answer-list/answer-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizListComponent,
+    DashboardComponent,
+    AnswerListComponent,
     QuestionsComponent,
-    DashboardComponent
   ],
   imports: [
     BrowserModule,
