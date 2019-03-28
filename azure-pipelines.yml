@@ -14,7 +14,7 @@ trigger:
 pool: 'Default'
 
 variables:
-appDir: bam-trivia-project-angular
+  appDir: bam-trivia-project-angular
 
 steps:
 - task: NodeTool@0
