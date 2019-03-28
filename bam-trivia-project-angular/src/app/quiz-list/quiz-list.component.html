@@ -1,10 +1,21 @@
 <h2>Quiz List</h2>
 
 <div>
-  <ul class="quizzes">
-    <li *ngFor="let quiz of quizzes">
-      <h3>{{quiz.id}}</h3>
-      <h3>{{quiz.category}}</h3>
-    </li>
-  </ul>
+  <h2>Quiz List</h2>
+  <div>
+    <ul>
+      <li *ngFor="let quiz of quizzes">
+        <h3>{{quiz.id}}</h3>
+        <h3>{{quiz.category}}</h3>
+
+        <button (click)="getQuestions(quiz);">Button</button>
+        <ul>
+        <li *ngFor="let q of questions">
+          <h3>{{q.id}}</h3>
+          <h3>{{q.category}}</h3>
+        </li>
+      </ul>
+      </li>
+    </ul>
+  </div>
 </div>

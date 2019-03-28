@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
+import { QuestionsComponent } from './questions/questions.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnswerListComponent } from './answer-list/answer-list.component';
 
@@ -13,7 +14,8 @@ import { AnswerListComponent } from './answer-list/answer-list.component';
     AppComponent,
     QuizListComponent,
     DashboardComponent,
-    AnswerListComponent
+    AnswerListComponent,
+    QuestionsComponent,
   ],
   imports: [
     BrowserModule,
