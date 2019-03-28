@@ -1,0 +1,21 @@
+<h2>Answer List</h2>
+
+<label>Quiz Id:
+  <input #quizId />
+</label>
+<button (click)="getAnswers(quizId.value); quizId.value=''">
+  Submit
+</button>
+
+
+
+<div>
+  <ul class="answers">
+    <li *ngFor="let answer of answers">
+      <h3>{{answer.id}}</h3>
+      <h3>{{answer.questionId}}</h3>
+      <h3>{{answer.answer}}</h3>
+      <h3>{{answer.correct}}</h3>
+    </li>
+  </ul>
+</div>
