@@ -13,6 +13,9 @@ trigger:
 
 pool: 'Default'
 
+variables:
+appDir: bam-trivia-project-angular
+
 steps:
 - task: NodeTool@0
   inputs:
@@ -28,6 +31,7 @@ steps:
     # certain rules in angular.json (e.g. replace environment.ts
     # with environment.prod.ts)
     npm run build --prod
+  workingDirectory: $(appDir)
   displayName: 'npm install and build'
 
 - task: AzureRmWebAppDeployment@4
@@ -35,5 +39,5 @@ steps:
   inputs:
     azureSubscription: 'Free Trial (74f13f66-859f-4fdc-8afa-2eabf78271b5)'
     WebAppName: BAM1902trivia
-    packageForLinux: $(System.DefaultWorkingDirectory)/dist/bam-trivia-project-angular
+    packageForLinux: $(appDir)/dist/bam-trivia-project-angular
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
