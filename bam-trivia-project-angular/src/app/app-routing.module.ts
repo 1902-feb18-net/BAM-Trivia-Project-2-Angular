@@ -5,10 +5,7 @@ import { CommonModule } from '@angular/common';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
 
 const routes: Routes = [
-  {
-    path: 'quiz-list',
-    component: QuizListComponent
-  }
+  { path: 'quiz-list', component: QuizListComponent }
 ];
 
 @NgModule({
