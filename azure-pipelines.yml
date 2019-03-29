@@ -1,0 +1,43 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - bam-trivia-project-angular
+
+pool: 'Default'
+
+variables:
+  appDir: bam-trivia-project-angular
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    # install/update angular cli globally on the agent
+    npm install -g @angular/cli
+    # install local dependencies from package-lock.json
+    npm ci
+    # build in production configuration, which activates
+    # certain rules in angular.json (e.g. replace environment.ts
+    # with environment.prod.ts)
+    npm run build --prod
+  workingDirectory: $(appDir)
+  displayName: 'npm install and build'
+
+- task: AzureRmWebAppDeployment@4
+  displayName: Azure App Service deploy
+  inputs:
+    azureSubscription: 'Free Trial (74f13f66-859f-4fdc-8afa-2eabf78271b5)'
+    WebAppName: BAM1902triviaAngular
+    packageForLinux: $(appDir)/dist/bam-trivia-project-angular
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
