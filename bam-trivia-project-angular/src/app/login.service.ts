@@ -12,7 +12,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
   
-  login(login: Login): Observable<{}> {
+  login(login: Login): Observable<Account> {
     // first, send request to login
     const url = `${environment.apiUrl}/api/Users/Login`;
     return this.http.post(url, login, { withCredentials: true }).pipe(res => {
