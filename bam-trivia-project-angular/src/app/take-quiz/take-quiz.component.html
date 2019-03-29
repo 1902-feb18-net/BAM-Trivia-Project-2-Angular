@@ -1,18 +1,35 @@
 <button (click)="startQuiz();">Take Quiz!</button>
 
-<h2>Quiz Question {{  questionsAnswered+1  }}</h2>
+<h2 *ngIf="givenQuestion">Quiz Question {{  questionsAnswered+1  }}</h2>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Multiple'">
   {{givenQuestion.qstring}}
-  <div *ngIf="!questionAnswers">
-    <button (click)="getQuestionAnswers(givenQuestion)">Temp</button>
-   <!-- {{getQuestionAnswers(givenQuestion)}} -->
-  </div>
-  <ul>
+  <form name="my-quiz-form" (ngSubmit)="submittedAnswer(correctAnswer);">
+    <ol>
       <li *ngFor="let a of questionAnswers">
-        <h3>{{a.answer}}</h3>
+        <input type="radio" value="a" name="quizAnswer">
+        <label for="a.answer">{{a.answer}}</label>
       </li>
-    </ul>
+    </ol>
+    <button type="submit">Submit Answer</button>
+  </form>
 </div>
-
-
-
+<div *ngIf="givenQuestion && givenQuestion.type === 'Bool'">
+  {{givenQuestion.qstring}}
+  <form name="my-quiz-form" (ngSubmit)="submittedAnswer(correctAnswer);">
+    <ol>
+      <li *ngFor="let a of questionAnswers">
+        <input type="radio" value="a" name="quizAnswer">
+        <label for="a.answer">{{a.answer}}</label>
+      </li>
+    </ol>
+    <button type="submit">Submit Answer</button>
+  </form>
+</div>
+<div *ngIf="givenQuestion && givenQuestion.type === 'Fill'">
+  {{givenQuestion.qstring}}
+  <form name="my-quiz-form" (ngSubmit)="submittedAnswer(correctAnswer);">
+      <label for="a.answer">{{a.answer}}</label>
+      <input type="text" value="{{a.answer}}" name="quizAnswer">
+    <button type="submit">Submit Answer</button>
+  </form>
+</div>
