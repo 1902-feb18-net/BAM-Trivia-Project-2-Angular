@@ -3,13 +3,13 @@
 <div>
   <h2>Quiz List</h2>
   <div>
-    <ul>
+    <ul class="quiz-list">
       <li *ngFor="let quiz of quizzes">
         <h3>{{quiz.id}}</h3>
         <h3>{{quiz.category}}</h3>
 
         <button (click)="getQuestions(quiz);">Button</button>
-        <ul>
+        <ul class="quiz-list">
         <li *ngFor="let q of questions">
           <h3>{{q.id}}</h3>
           <h3>{{q.category}}</h3>
@@ -19,3 +19,44 @@
     </ul>
   </div>
 </div>
+<br/>
+<br/>
+<br/>
+  <h2>Random Quiz</h2>
+
+<app-quiz></app-quiz>
+
+
+<!-- <form (ngSubmit)="getRandomQuiz()">
+
+  <input type="text" [(ngModel)]="quiz.category" placeholder="Category" required name="category" />
+  <input type="number" [(ngModel)]="quiz.difficulty" placeholder="Difficulty" required name="difficulty" />
+
+  <button type="submit">Login</button>
+</form> -->
+
+<!-- <form #randomForm="ngForm" (ngSubmit)="getRandomQuiz(randomForm.form);">
+  <div class="form-group">
+    <label for="category">Category</label>
+    <input type="text" class="form-control" id="category" required>
+  </div>
+
+  <div class="form-group">
+    <label for="difficulty">Alter Ego</label>
+    <input type="text" class="form-control" id="difficulty">
+  </div>
+
+  <button type="submit" class="btn btn-success">Random Quiz Button</button>
+
+</form> -->
+
+
+
+<div>
+  <li *ngIf="randomQuiz">
+    <h3>QuizId: {{quiz.id}}</h3>
+    <h3>QuizCategory: {{quiz.category}}</h3>
+    <h3>QuizDiff: {{quiz.difficulty}}</h3>
+  </li>
+</div>
+
