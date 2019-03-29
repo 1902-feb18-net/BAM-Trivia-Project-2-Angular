@@ -5,7 +5,8 @@ import { Answer } from '../models/answer';
 import { QuestionsService } from '../questions.service';
 import { AnswerService } from '../answer.service';
 import { TakeQuizService } from '../take-quiz.service';
-import { QuizService } from '../quiz.service'
+import { QuizService } from '../quiz.service';
+import { ResultsService } from '../results.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { distinct } from 'rxjs/internal/operators';
 import { error } from '@angular/compiler/src/util';
@@ -98,7 +99,8 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
-    if (this.chosenQuiz != undefined && this.questionsAnswered < this.chosenQuiz.maxScore || this.questionsAnswered < this.quizzes[this.quizIndex].maxScore)
+    if (this.chosenQuiz != undefined && this.questionsAnswered < this.chosenQuiz.maxScore 
+      || this.questionsAnswered < this.quizzes[this.quizIndex].maxScore)
     {
     this.givenQuestion = this.questions[this.questionsAnswered];
     this.questionAnswers = [];

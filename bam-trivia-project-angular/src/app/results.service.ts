@@ -3,13 +3,12 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Result } from './models/results';
 import { Observable, throwError } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
+@Injectable({ providedIn: 'root' })
 
 export class ResultsService {
   public API = 'https://localhost:44338/api';
