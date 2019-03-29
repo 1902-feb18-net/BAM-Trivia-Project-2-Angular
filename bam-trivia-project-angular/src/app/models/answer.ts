@@ -9,5 +9,7 @@ export class Answer {
     // questionString: string;
     answer: string;
     correct: boolean;
-    questionText: string
+    questionText: string;
+    quizId: number;
+    userId: number;
 }
