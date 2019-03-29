@@ -35,7 +35,6 @@ export class TakeQuizComponent implements OnInit {
     }, err => console.log(err));
 
     //this.startQuiz();
-
   }
 
   getQuestions(quiz : Quiz) { this.questionsService.getQuestions(quiz).subscribe(data => {
@@ -47,9 +46,10 @@ export class TakeQuizComponent implements OnInit {
 
   getAnswers(quizId: number) {
     this.answerService.getAnswers(quizId).subscribe(data => {
-      console.log(`answers: ${data}`);
+      console.log(data);
       this.answers = data;
       this.getQuestionAnswers(this.questions[0]);
+      this.getCorrectAnswer(this.questions[0])
     }, err => console.log(err));
   }
 
@@ -59,11 +59,6 @@ export class TakeQuizComponent implements OnInit {
 
      this.questionsAnswered = 0;
      this.numberOfCorrectAnswers = 0;
-    
-    //  if (this.questions != null && this.questions != undefined)
-    //   this.givenQuestion = this.questions[0];
-    // else
-    //   console.log("given questions has not triggered possibly because it's async");
 
     console.log("Start quiz has triggered!");
   }
@@ -72,22 +67,20 @@ export class TakeQuizComponent implements OnInit {
 
   }
 
-  inputAnswer(answer: string) {
-
+  submittedAnswer(answer: Answer) {
+    console.log("answer was submitted");
+    console.log(answer);
+    console.log(this.correctAnswer);
+    this.questionsAnswered++;
+    if(this.checkAnswer(answer))
+    {
+      this.numberOfCorrectAnswers++;
+      console.log("answer was correct");
+    }
   }
 
   getCorrectAnswer(question: Questions): Answer {
 
-    // //This loops goes through a list of all answers received and selects
-    // //  the ones that apply to the given question only
-    // for (var i = 0; i < this.answers.length; i++)
-    // {
-    //   if (this.answers[i].id == question.id)
-    //     this.questionAnswers.push(this.answers[i]);
-    // }
-
-    //This loops through the answers for the given question and returns
-    //  the correct answer
     for (var i = 0; i < this.answers.length; i++)
     {
       if (this.answers[i].correct)
@@ -111,11 +104,9 @@ export class TakeQuizComponent implements OnInit {
     console.log(this.questionAnswers)
   }
 
-  checkAnswer(): boolean {
-    this.questionsAnswered++;
-    if (this.answeredQuestion == this.getCorrectAnswer(this.givenQuestion).answer)
+  checkAnswer(answer: Answer): boolean {
+    if (answer === this.correctAnswer)
     {
-      this.numberOfCorrectAnswers++;
       return true;
     }
     else
