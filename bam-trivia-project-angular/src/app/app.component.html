@@ -1,7 +1,11 @@
-<h1>{{title}}</h1>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
+</head>
+
+<h1 class="main-title" style="font-size: 1.75em;">{{title}}</h1>
 <nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/quiz-list">Quizzes</a>
-  <a routerLink="/answers">Answers</a>
+  <a routerLink="/dashboard" style="color: #000000;">Dashboard</a>
+  <a routerLink="/quiz-list" style="color: #000000;">Quizzes</a>
+  <a routerLink="/answers" style="color: #000000;">Answers</a>
 </nav>
 <router-outlet></router-outlet>
