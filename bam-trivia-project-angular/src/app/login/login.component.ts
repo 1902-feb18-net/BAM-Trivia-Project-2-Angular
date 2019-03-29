@@ -25,10 +25,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.api.login(this.login).subscribe((account: Account) => {
-      this.account = account;
-      console.log(this.account);
+    this.api.login(this.login).then((account: Account) => {
+      console.log(account);
       this.router.navigate(['/quiz-list']);
+    // this.api.login(this.login).subscribe((account: Account) => {
+    //   this.account = account;
+      // console.log(this.account);
+      // this.router.navigate(['/quiz-list']);
     },
       error => {
         // should inspect error and put useful info on page
