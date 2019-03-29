@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Login } from '../models/login';
 import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
+import { Account } from '../models/account';
+
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
 
   login: Login = new Login();
+  account: Account;
 
   constructor(
     private api: LoginService,
@@ -22,7 +25,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.api.login(this.login).subscribe(() => {
+    this.api.login(this.login).subscribe((account: Account) => {
+      this.account = account;
+      console.log(this.account);
       this.router.navigate(['/quiz-list']);
     },
       error => {
