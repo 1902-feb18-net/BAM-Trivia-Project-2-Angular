@@ -1,0 +1,7 @@
+<form (ngSubmit)="onSubmit()">
+
+  <input type="text" [(ngModel)]="quiz.category" placeholder="Category" required name="category" />
+  <input type="number" [(ngModel)]="quiz.difficulty" placeholder="Difficulty" required name="difficulty" />
+
+  <button type="submit">Submit Random Quiz</button>
+</form>

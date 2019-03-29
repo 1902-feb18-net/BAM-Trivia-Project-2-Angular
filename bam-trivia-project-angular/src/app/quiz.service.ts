@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from "rxjs/internal/operators";
 
 import { Quiz } from './models/quiz';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({ providedIn: 'root' })
 export class QuizService {
@@ -17,6 +21,20 @@ export class QuizService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  getRandomQuiz(quiz: Quiz): Observable<Quiz> {
+    console.log('getRandomQuiz');
+    return this.http.post<Quiz>(`${this.API}/Quizzes/Random`, quiz, httpOptions);
+      // .pipe(
+      //   catchError(this.handleError('addHero', hero))
+      // );
+
+   
+    // return this.http.get<Quiz>(`${this.API}/Quizzes/Random`)
+    //   .pipe(
+    //     catchError(this.handleError)
+    //   );
   }
 
   // get(id: string) {
