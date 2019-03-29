@@ -21,10 +21,10 @@ export class TakeQuizService {
 
   addUserQuiz(userquiz: UserQuiz): Observable<Quiz> {
     // /Users/{Id}/Quizzes
-    console.log(`${environment.apiUrl}/Users/
+    console.log(`${environment.apiUrl}/api/Users/
     ${sessionStorage.getItem('account')['username']}/Quizzes`);
     console.log(sessionStorage.getItem('account')['username']);
-    return this.http.post<Quiz>(`${environment.apiUrl}/Users/
+    return this.http.post<Quiz>(`${environment.apiUrl}/api/Users/
     ${sessionStorage.getItem('account')['username']}/Quizzes`, {}, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');
@@ -37,7 +37,7 @@ export class TakeQuizService {
 
   addQuizAnswer(answer: Answer): Observable<Quiz> {
         // /Users/{Id}/Quizzes/{Id}/Results
-    return this.http.post<Quiz>(`${environment.apiUrl}/Quizzes/${answer.userId}
+    return this.http.post<Quiz>(`${environment.apiUrl}/api/Quizzes/${answer.userId}
     /Results`, answer, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');

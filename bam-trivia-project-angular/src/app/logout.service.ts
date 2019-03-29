@@ -12,7 +12,7 @@ export class LogoutService {
 
   logout(): Observable<{}> {
     // first, send request to login
-    const url = `${environment.apiUrl}/api/Users/Logout`;
+    const url = `https://localhost:44338/api/Users/Logout`;
     return this.http.post(url, {}, { withCredentials: true }).pipe(res => {
       // then, send request to details
       sessionStorage.removeItem('account');

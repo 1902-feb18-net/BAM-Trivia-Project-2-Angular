@@ -19,7 +19,7 @@ export class QuizService {
   randomQuiz: Quiz;
 
   getQuizzes(): Observable<Quiz[]> {
-    return this.http.get<Quiz[]>(`${environment.apiUrl}/Quizzes`, { withCredentials: true })
+    return this.http.get<Quiz[]>(`${environment.apiUrl}/api/Quizzes`, { withCredentials: true })
       .pipe(catchError(error => {
         console.log('error:');
         console.log(error);
@@ -31,7 +31,7 @@ export class QuizService {
 
   getRandomQuiz(quiz: Quiz): Observable<Quiz> {
     console.log('getRandomQuiz');
-    return this.http.post<Quiz>(`${environment.apiUrl}/Quizzes/Random`, quiz, httpOptions)
+    return this.http.post<Quiz>(`${environment.apiUrl}/api/Quizzes/Random`, quiz, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');
         console.log(error);
