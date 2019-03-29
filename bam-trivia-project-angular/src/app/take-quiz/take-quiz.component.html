@@ -1,7 +1,7 @@
 <button (click)="startQuiz();" [disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Quiz!</button>
 
-<h2 *ngIf="givenQuestion">Quiz Question {{  questionsAnswered+1  }}</h2>
-<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple'">
+<h2 *ngIf="givenQuestion && questionsAnswered < 10">Quiz Question {{  questionsAnswered+1  }}</h2>
+<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple' && questionsAnswered < 10">
   {{givenQuestion.qstring}}
   <form name="my-quiz-form" #myForm="ngForm" (ngSubmit)="submittedAnswer();">
     <ol>
@@ -13,7 +13,7 @@
     <button type="submit">Submit Answer</button>
   </form>
 </div>
-<div *ngIf="givenQuestion && givenQuestion.type === 'Bool'">
+<div *ngIf="givenQuestion && givenQuestion.type === 'Bool' && questionsAnswered < 10">
   {{givenQuestion.qstring}}
   <form name="my-quiz-form" (ngSubmit)="submittedAnswer(correctAnswer);">
     <ol>
@@ -25,10 +25,13 @@
     <button type="submit">Submit Answer</button>
   </form>
 </div>
-<div *ngIf="givenQuestion && givenQuestion.type === 'Fill'">
+<div *ngIf="givenQuestion && givenQuestion.type === 'Fill' && questionsAnswered < 10">
   {{givenQuestion.qstring}}
   <form name="my-quiz-form" (ngSubmit)="submittedFillAnswer()">
       <input type="text" [(ngModel)]="selectedAnswerString" [value]="text" name="quizAnswer">
     <button type="submit">Submit Answer</button>
   </form>
+</div>
+<div *ngIf="questionsAnswered >= 10">
+  <h2>You received {{numberOfCorrectAnswers}} / 10!</h2>
 </div>

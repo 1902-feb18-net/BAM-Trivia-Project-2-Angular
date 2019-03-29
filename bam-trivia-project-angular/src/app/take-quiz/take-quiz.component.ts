@@ -86,11 +86,13 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
+    if (this.questionsAnswered < 10)
+    {
     this.givenQuestion = this.questions[this.questionsAnswered];
     this.questionAnswers = [];
     this.getQuestionAnswers(this.questions[this.questionsAnswered]);
-    this.getCorrectAnswer(this.questionAnswers)
-  
+    this.getCorrectAnswer(this.questionAnswers);
+    }
   }
 
   submittedFillAnswer() {
@@ -102,13 +104,17 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("fill answer was correct");
     }
-    this.givenQuestion = this.questions[this.questionsAnswered];
-    this.questionAnswers = [];
-    this.getQuestionAnswers(this.questions[this.questionsAnswered]);
-    this.getCorrectAnswer(this.questionAnswers)
+    if (this.questionsAnswered < 10)
+    {
+      this.givenQuestion = this.questions[this.questionsAnswered];
+      this.questionAnswers = [];
+      this.getQuestionAnswers(this.questions[this.questionsAnswered]);
+      this.getCorrectAnswer(this.questionAnswers);
+    }
   }
 
   getCorrectAnswer(possibleAnswers: Answer[]): Answer {
+
     for (var i = 0; i < possibleAnswers.length; i++)
     {
       if (possibleAnswers[i].correct)
@@ -117,9 +123,11 @@ export class TakeQuizComponent implements OnInit {
       }
     }
     return this.correctAnswer;
+    
   }
 
   getQuestionAnswers(question: Questions) {
+
     for (var i = 0; i < this.answers.length; i++)
     {
       if (this.answers[i].questionId === question.id)
@@ -129,6 +137,7 @@ export class TakeQuizComponent implements OnInit {
         
     }
     console.log(this.questionAnswers)
+    
   }
 
   checkAnswer(answer: Answer): boolean {
