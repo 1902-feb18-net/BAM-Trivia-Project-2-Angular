@@ -1,4 +1,4 @@
-<button (click)="startQuiz();">Take Quiz!</button>
+<button (click)="startQuiz();" [disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Quiz!</button>
 
 <h2 *ngIf="givenQuestion">Quiz Question {{  questionsAnswered+1  }}</h2>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Multiple'">
@@ -27,9 +27,9 @@
 </div>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Fill'">
   {{givenQuestion.qstring}}
-  <form name="my-quiz-form" (ngSubmit)="submittedAnswer(correctAnswer);">
-      <label for="a.answer">{{a.answer}}</label>
-      <input type="text" value="{{a.answer}}" name="quizAnswer">
+  {{this.correctAnswer.answer}}
+  <form name="my-quiz-form" (ngSubmit)="submittedAnswer(correctAnswer)">
+      <input type="text" value="fill" name="quizAnswer">
     <button type="submit">Submit Answer</button>
   </form>
 </div>
