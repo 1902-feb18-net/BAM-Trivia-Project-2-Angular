@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnswerListComponent } from './answer-list/answer-list.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { TakeQuizComponent } from './take-quiz/take-quiz.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TakeQuizComponent } from './take-quiz/take-quiz.component';
     QuestionsComponent,
     QuizComponent,
     TakeQuizComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

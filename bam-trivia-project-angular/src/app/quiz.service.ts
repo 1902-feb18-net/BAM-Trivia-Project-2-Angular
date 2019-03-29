@@ -17,7 +17,7 @@ export class QuizService {
   constructor(private http: HttpClient) { }
 
   getQuizzes(): Observable<Quiz[]> {
-    return this.http.get<Quiz[]>(`${this.API}/Quizzes`)
+    return this.http.get<Quiz[]>(`${this.API}/Quizzes`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

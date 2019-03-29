@@ -8,5 +8,13 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'trivia project angular';
+  title = 'BAM Trivia Project 2 Angular';
+
+  //  isLoggedIn: boolean = false; 
+  ngOnInit() {
+    // console.log(sessionStorage.getItem('account'));
+    // if (sessionStorage.getItem('account') !== null) {
+    //   this.isLoggedIn = true;
+    // }
+  }
 }
