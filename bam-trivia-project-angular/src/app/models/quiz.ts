@@ -8,4 +8,5 @@ export class Quiz {
     maxScore: number;
     difficulty: number;
     category: string;
+
 }
