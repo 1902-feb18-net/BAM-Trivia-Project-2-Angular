@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { distinct } from 'rxjs/internal/operators';
 import { error } from '@angular/compiler/src/util';
 import { elementStyleProp } from '@angular/core/src/render3';
+import { Result } from '../models/results';
 
 @Component({
   selector: 'app-take-quiz',
@@ -30,6 +31,7 @@ export class TakeQuizComponent implements OnInit {
   questionsAnswered: number;
   numberOfCorrectAnswers: number;
   quizIndex: number;
+  result: Result;
 
   constructor(private questionsService: QuestionsService, private answerService: AnswerService,
     private takeQuizService: TakeQuizService, private quizService: QuizService) { }
@@ -62,6 +64,10 @@ export class TakeQuizComponent implements OnInit {
     }, err => console.log(err));
   }
 
+  sendResult(answer: Answer) {
+    
+  }
+
   startQuiz() {
     this.quizIndex = Math.floor((Math.random() * this.quizzes.length));
     this.getQuestions(this.quizzes[this.quizIndex]);
@@ -92,7 +98,7 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
-    if (this.questionsAnswered < 10)
+    if (this.chosenQuiz != undefined && this.questionsAnswered < this.chosenQuiz.maxScore || this.questionsAnswered < this.quizzes[this.quizIndex].maxScore)
     {
     this.givenQuestion = this.questions[this.questionsAnswered];
     this.questionAnswers = [];
@@ -162,10 +168,6 @@ export class TakeQuizComponent implements OnInit {
     }
     else
       return false;
-  }
-
-  displayScore(): string {
-    return `${this.numberOfCorrectAnswers}/10`;
   }
 
   //this returns the quiz percentage (ex: 80, 90, 20, etc.)
