@@ -22,6 +22,7 @@ export class QuizComponent implements OnInit {
       console.log("callback");
       console.log(data);
       this.quiz = data;
+      this.quizService.randomQuiz = this.quiz;
     }, err => console.log(err));
 
   }

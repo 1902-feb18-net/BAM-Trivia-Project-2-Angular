@@ -19,6 +19,7 @@ import { elementStyleProp } from '@angular/core/src/render3';
 export class TakeQuizComponent implements OnInit {
   quizzes: Quiz[] = [];
   questions: Questions[] = [];
+  chosenQuiz: Quiz;
   answers: Answer[] = [];
   answeredQuestion: string;
   questionAnswers: Answer[] = [];
@@ -28,11 +29,7 @@ export class TakeQuizComponent implements OnInit {
   givenQuestion: Questions;
   questionsAnswered: number;
   numberOfCorrectAnswers: number;
-
-  formGroup = new FormGroup({
-    selectedAnswer: new FormControl(new Answer),
-    selectedAnswerString: new FormControl('')
-  })
+  quizIndex: number;
 
   constructor(private questionsService: QuestionsService, private answerService: AnswerService,
     private takeQuizService: TakeQuizService, private quizService: QuizService) { }
@@ -50,7 +47,10 @@ export class TakeQuizComponent implements OnInit {
     console.log(data);
     this.questions = data;
     this.givenQuestion = this.questions[0];
-    this.getAnswers(1);
+    if (this.chosenQuiz != undefined)
+    this.getAnswers(this.chosenQuiz.id);
+    else
+    this.getAnswers(this.quizzes[this.quizIndex].id);
     }, err => console.log(err));}
 
   getAnswers(quizId: number) {
@@ -63,8 +63,8 @@ export class TakeQuizComponent implements OnInit {
   }
 
   startQuiz() {
-     this.getQuestions(this.quizzes[0]);
-     //this.getAnswers(1);
+    this.quizIndex = Math.floor((Math.random() * this.quizzes.length));
+    this.getQuestions(this.quizzes[this.quizIndex]);
 
      this.questionsAnswered = 0;
      this.numberOfCorrectAnswers = 0;
@@ -72,8 +72,14 @@ export class TakeQuizComponent implements OnInit {
     console.log("Start quiz has triggered!");
   }
 
-  generateQuestion(question: Questions, answers: Answer[]) {
+  startRandomQuiz() {
+    this.chosenQuiz = this.quizService.randomQuiz;
+    this.getQuestions(this.chosenQuiz);
 
+     this.questionsAnswered = 0;
+     this.numberOfCorrectAnswers = 0;
+
+    console.log("Start random quiz has triggered!");
   }
 
   submittedAnswer() {
@@ -86,11 +92,13 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
+    if (this.questionsAnswered < 10)
+    {
     this.givenQuestion = this.questions[this.questionsAnswered];
     this.questionAnswers = [];
     this.getQuestionAnswers(this.questions[this.questionsAnswered]);
-    this.getCorrectAnswer(this.questionAnswers)
-  
+    this.getCorrectAnswer(this.questionAnswers);
+    }
   }
 
   submittedFillAnswer() {
@@ -102,9 +110,17 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("fill answer was correct");
     }
+    if (this.questionsAnswered < 10)
+    {
+      this.givenQuestion = this.questions[this.questionsAnswered];
+      this.questionAnswers = [];
+      this.getQuestionAnswers(this.questions[this.questionsAnswered]);
+      this.getCorrectAnswer(this.questionAnswers);
+    }
   }
 
   getCorrectAnswer(possibleAnswers: Answer[]): Answer {
+
     for (var i = 0; i < possibleAnswers.length; i++)
     {
       if (possibleAnswers[i].correct)
@@ -113,9 +129,11 @@ export class TakeQuizComponent implements OnInit {
       }
     }
     return this.correctAnswer;
+    
   }
 
   getQuestionAnswers(question: Questions) {
+
     for (var i = 0; i < this.answers.length; i++)
     {
       if (this.answers[i].questionId === question.id)
@@ -125,6 +143,7 @@ export class TakeQuizComponent implements OnInit {
         
     }
     console.log(this.questionAnswers)
+    
   }
 
   checkAnswer(answer: Answer): boolean {
