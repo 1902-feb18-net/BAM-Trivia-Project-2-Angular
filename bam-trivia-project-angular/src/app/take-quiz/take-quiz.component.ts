@@ -50,6 +50,7 @@ export class TakeQuizComponent implements OnInit {
       this.answers = data;
       this.getQuestionAnswers(this.questions[0]);
       this.getCorrectAnswer(this.questions[0])
+      // console.log(this.correctAnswer);
     }, err => console.log(err));
   }
 
@@ -86,21 +87,19 @@ export class TakeQuizComponent implements OnInit {
       if (this.answers[i].correct)
         this.correctAnswer = this.answers[i];
     }
-      return this.correctAnswer;
+    console.log(this.correctAnswer);
+    return this.correctAnswer;
   }
 
   getQuestionAnswers(question: Questions) {
     for (var i = 0; i < this.answers.length; i++)
     {
-      console.log(`the for loop has triggered, answers[${i}].questionId == ${this.answers[i].questionId}`)
       if (this.answers[i].questionId === question.id)
       {
         this.questionAnswers.push(this.answers[i]);
-        console.log("the if statement has triggered, it should trigger 4 times");
       }
         
     }
-    console.log("getQuestionAnswers has triggered");
     console.log(this.questionAnswers)
   }
 
