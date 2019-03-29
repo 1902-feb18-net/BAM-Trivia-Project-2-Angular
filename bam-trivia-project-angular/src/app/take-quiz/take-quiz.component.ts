@@ -87,9 +87,10 @@ export class TakeQuizComponent implements OnInit {
       console.log("answer was correct");
     }
     this.givenQuestion = this.questions[this.questionsAnswered];
+    this.questionAnswers = [];
     this.getQuestionAnswers(this.questions[this.questionsAnswered]);
     this.getCorrectAnswer(this.questionAnswers)
-    this.formGroup.reset(this.selectedAnswer);
+  
   }
 
   submittedFillAnswer() {
