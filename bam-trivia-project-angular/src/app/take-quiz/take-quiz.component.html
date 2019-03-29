@@ -3,7 +3,7 @@
 <h2 *ngIf="givenQuestion">Quiz Question {{  questionsAnswered+1  }}</h2>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Multiple'">
   {{givenQuestion.qstring}}
-  <form name="my-quiz-form" (ngSubmit)="submittedAnswer(value);">
+  <form name="my-quiz-form" #answer="ngForm" (ngSubmit)="submittedAnswer(answer);">
     <ol>
       <li *ngFor="let a of questionAnswers">
         <input type="radio" value="a" name="quizAnswer">
