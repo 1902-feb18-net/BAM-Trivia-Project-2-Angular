@@ -102,6 +102,10 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("fill answer was correct");
     }
+    this.givenQuestion = this.questions[this.questionsAnswered];
+    this.questionAnswers = [];
+    this.getQuestionAnswers(this.questions[this.questionsAnswered]);
+    this.getCorrectAnswer(this.questionAnswers)
   }
 
   getCorrectAnswer(possibleAnswers: Answer[]): Answer {
