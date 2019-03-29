@@ -7,7 +7,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnswerListComponent } from './answer-list/answer-list.component';
 import { TakeQuizComponent } from './take-quiz/take-quiz.component';
 import { AuthGuard } from './auth.guard';
-import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

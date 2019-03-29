@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class LogoutComponent implements OnInit {
 
   isLoggedIn: boolean = false;
+  userId: number;
+  userName: string;
 
   constructor(
     private api: LogoutService,
@@ -18,6 +20,9 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = sessionStorage.getItem('account') !== null;
+    if (sessionStorage.getItem('account') !== null) {
+      console.log(sessionStorage.getItem('account'));
+    }
   }
 
   onSubmit() {
