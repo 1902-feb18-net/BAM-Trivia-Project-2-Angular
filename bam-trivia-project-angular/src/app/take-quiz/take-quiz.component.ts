@@ -6,6 +6,7 @@ import { QuestionsService } from '../questions.service';
 import { AnswerService } from '../answer.service';
 import { TakeQuizService } from '../take-quiz.service';
 import { QuizService } from '../quiz.service'
+import { FormControl, FormGroup } from '@angular/forms';
 import { distinct } from 'rxjs/internal/operators';
 import { error } from '@angular/compiler/src/util';
 import { elementStyleProp } from '@angular/core/src/render3';
@@ -27,6 +28,12 @@ export class TakeQuizComponent implements OnInit {
   givenQuestion: Questions;
   questionsAnswered: number;
   numberOfCorrectAnswers: number;
+
+  formGroup = new FormGroup({
+    selectedAnswer: new FormControl(new Answer),
+    selectedAnswerString: new FormControl('')
+  })
+
   constructor(private questionsService: QuestionsService, private answerService: AnswerService,
     private takeQuizService: TakeQuizService, private quizService: QuizService) { }
 
@@ -42,7 +49,7 @@ export class TakeQuizComponent implements OnInit {
   getQuestions(quiz : Quiz) { this.questionsService.getQuestions(quiz).subscribe(data => {
     console.log(data);
     this.questions = data;
-    this.givenQuestion = this.questions[7];
+    this.givenQuestion = this.questions[0];
     this.getAnswers(1);
     }, err => console.log(err));}
 
@@ -50,7 +57,7 @@ export class TakeQuizComponent implements OnInit {
     this.answerService.getAnswers(quizId).subscribe(data => {
       console.log(data);
       this.answers = data;
-      this.getQuestionAnswers(this.questions[7]);
+      this.getQuestionAnswers(this.questions[0]);
       this.getCorrectAnswer(this.questionAnswers)
     }, err => console.log(err));
   }
@@ -79,6 +86,10 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
+    this.givenQuestion = this.questions[this.questionsAnswered];
+    this.getQuestionAnswers(this.questions[this.questionsAnswered]);
+    this.getCorrectAnswer(this.questionAnswers)
+    this.formGroup.reset(this.selectedAnswer);
   }
 
   submittedFillAnswer() {
