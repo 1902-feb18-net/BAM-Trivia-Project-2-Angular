@@ -8,6 +8,7 @@ import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnswerListComponent } from './answer-list/answer-list.component';
+import { TakeQuizComponent } from './take-quiz/take-quiz.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AnswerListComponent } from './answer-list/answer-list.component';
     DashboardComponent,
     AnswerListComponent,
     QuestionsComponent,
+    TakeQuizComponent,
   ],
   imports: [
     BrowserModule,

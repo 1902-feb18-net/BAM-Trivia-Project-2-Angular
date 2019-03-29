@@ -1,0 +1,9 @@
+<button (click)="startQuiz();">Take Quiz!</button>
+
+<h2>Quiz Question {{  questionsAnswered+1  }}</h2>
+<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple'">
+  {{givenQuestion.qstring}}
+</div>
+
+
+
