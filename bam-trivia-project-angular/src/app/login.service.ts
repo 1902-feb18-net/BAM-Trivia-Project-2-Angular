@@ -14,7 +14,7 @@ export class LoginService {
   
   async login(login: Login): Promise<Account> {
     // first, send request to login
-    const url = `https://localhost:44338/api/Users/Login`;
+    const url = `${environment.apiUrl}/api/Users/Login`;
     console.log(`request to ${url}`);
     const response = await this.http.post(url, login, {
       observe: 'response',
@@ -23,7 +23,7 @@ export class LoginService {
     console.log('received:');
     console.log(response);
     // then, send request to details
-    const url2 = `https://localhost:44338/api/Users/Details`;
+    const url2 = `${environment.apiUrl}/api/Users/Details`;
     console.log(`request to ${url2}`);
     const account = await this.http.get<Account>(url2, { withCredentials: true }).toPromise();
     console.log('received:');
