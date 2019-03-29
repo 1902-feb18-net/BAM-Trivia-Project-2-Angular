@@ -20,7 +20,7 @@ export class QuestionsService {
   // public QUIZZES_API = `${this.API}/Quizzes`;
   constructor(private http: HttpClient) { }
   getQuestions(quiz: Quiz): Observable<Questions[]> {
-    return this.http.post<Questions[]>(`${environment.apiUrl}/Quizzes`, quiz, httpOptions)
+    return this.http.post<Questions[]>(`${environment.apiUrl}/api/Quizzes`, quiz, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');
         console.log(error);
