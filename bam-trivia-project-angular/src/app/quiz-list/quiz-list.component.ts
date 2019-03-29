@@ -22,6 +22,9 @@ export class QuizListComponent implements OnInit {
       console.log(data);
       this.quizzes = data;
     }, err => console.log(err));
+    if (sessionStorage.getItem('account') !== null) {
+      console.log(sessionStorage.getItem('account'));
+    }
   }
 
   getQuestions(quiz : Quiz) { this.questionsService.getQuestions(quiz).subscribe(data => {
