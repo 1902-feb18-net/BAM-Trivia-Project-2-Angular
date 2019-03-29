@@ -1,4 +1,6 @@
+<app-quiz></app-quiz>
 <button (click)="startQuiz();" [disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Quiz!</button>
+<button (click)="startRandomQuiz();" [disabled]="questionsAnswered != undefined && questionsAnswered != null">Generate Quiz!</button>
 
 <h2 *ngIf="givenQuestion && questionsAnswered < 10">Quiz Question {{  questionsAnswered+1  }}</h2>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Multiple' && questionsAnswered < 10">

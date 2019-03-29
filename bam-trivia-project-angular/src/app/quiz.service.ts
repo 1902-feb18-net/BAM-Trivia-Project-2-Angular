@@ -16,6 +16,8 @@ export class QuizService {
   // public QUIZZES_API = `${this.API}/Quizzes`;
   constructor(private http: HttpClient) { }
 
+  randomQuiz: Quiz;
+
   getQuizzes(): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(`${this.API}/Quizzes`, { withCredentials: true })
       .pipe(
