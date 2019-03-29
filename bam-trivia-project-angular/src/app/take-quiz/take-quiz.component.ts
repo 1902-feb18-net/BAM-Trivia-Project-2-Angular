@@ -22,6 +22,8 @@ export class TakeQuizComponent implements OnInit {
   answeredQuestion: string;
   questionAnswers: Answer[] = [];
   correctAnswer: Answer;
+  selectedAnswer: Answer;
+  selectedAnswerString: string;
   givenQuestion: Questions;
   questionsAnswered: number;
   numberOfCorrectAnswers: number;
@@ -40,7 +42,7 @@ export class TakeQuizComponent implements OnInit {
   getQuestions(quiz : Quiz) { this.questionsService.getQuestions(quiz).subscribe(data => {
     console.log(data);
     this.questions = data;
-    this.givenQuestion = this.questions[0];
+    this.givenQuestion = this.questions[7];
     this.getAnswers(1);
     }, err => console.log(err));}
 
@@ -48,7 +50,7 @@ export class TakeQuizComponent implements OnInit {
     this.answerService.getAnswers(quizId).subscribe(data => {
       console.log(data);
       this.answers = data;
-      this.getQuestionAnswers(this.questions[0]);
+      this.getQuestionAnswers(this.questions[7]);
       this.getCorrectAnswer(this.questionAnswers)
     }, err => console.log(err));
   }
@@ -67,22 +69,23 @@ export class TakeQuizComponent implements OnInit {
 
   }
 
-  submittedAnswer(answer: Answer) {
+  submittedAnswer() {
     console.log("answer was submitted");
-    console.log(answer);
+    console.log(this.selectedAnswer);
     console.log(this.correctAnswer);
     this.questionsAnswered++;
-    if(this.checkAnswer(answer))
+    if(this.checkAnswer(this.selectedAnswer))
     {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
   }
 
-  submittedFillAnswer(answer: string) {
-    console.log(`fill answer was submitted, ${answer}, correct answer is ${this.correctAnswer.answer}`);
+  submittedFillAnswer() {
+    console.log(`fill answer was submitted`);
+    console.log(this.selectedAnswerString);
     this.questionsAnswered++;
-    if(this.checkFillAnswer(answer))
+    if(this.checkFillAnswer(this.selectedAnswerString))
     {
       this.numberOfCorrectAnswers++;
       console.log("fill answer was correct");
