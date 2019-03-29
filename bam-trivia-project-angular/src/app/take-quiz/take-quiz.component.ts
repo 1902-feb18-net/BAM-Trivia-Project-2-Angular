@@ -49,8 +49,7 @@ export class TakeQuizComponent implements OnInit {
       console.log(data);
       this.answers = data;
       this.getQuestionAnswers(this.questions[0]);
-      this.getCorrectAnswer(this.questions[0])
-      // console.log(this.correctAnswer);
+      this.getCorrectAnswer(this.questionAnswers)
     }, err => console.log(err));
   }
 
@@ -80,14 +79,24 @@ export class TakeQuizComponent implements OnInit {
     }
   }
 
-  getCorrectAnswer(question: Questions): Answer {
-
-    for (var i = 0; i < this.answers.length; i++)
+  submittedFillAnswer(answer: string) {
+    console.log(`fill answer was submitted, ${answer}, correct answer is ${this.correctAnswer.answer}`);
+    this.questionsAnswered++;
+    if(this.checkFillAnswer(answer))
     {
-      if (this.answers[i].correct)
-        this.correctAnswer = this.answers[i];
+      this.numberOfCorrectAnswers++;
+      console.log("fill answer was correct");
     }
-    console.log(this.correctAnswer);
+  }
+
+  getCorrectAnswer(possibleAnswers: Answer[]): Answer {
+    for (var i = 0; i < possibleAnswers.length; i++)
+    {
+      if (possibleAnswers[i].correct)
+      {
+        this.correctAnswer = possibleAnswers[i];
+      }
+    }
     return this.correctAnswer;
   }
 
@@ -105,6 +114,15 @@ export class TakeQuizComponent implements OnInit {
 
   checkAnswer(answer: Answer): boolean {
     if (answer === this.correctAnswer)
+    {
+      return true;
+    }
+    else
+      return false;
+  }
+
+  checkFillAnswer(answer: string): boolean {
+    if (answer === this.correctAnswer.answer)
     {
       return true;
     }
