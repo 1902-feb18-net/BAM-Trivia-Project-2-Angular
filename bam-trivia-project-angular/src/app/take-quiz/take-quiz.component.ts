@@ -19,23 +19,30 @@ import { Result } from '../models/results';
   styleUrls: ['./take-quiz.component.css']
 })
 export class TakeQuizComponent implements OnInit {
-  quizzes: Quiz[] = [];
-  questions: Questions[] = [];
-  chosenQuiz: Quiz;
-  answers: Answer[] = [];
-  answeredQuestion: string;
-  questionAnswers: Answer[] = [];
-  correctAnswer: Answer;
-  selectedAnswer: Answer;
-  selectedAnswerString: string;
-  givenQuestion: Questions;
-  questionsAnswered: number;
-  numberOfCorrectAnswers: number;
-  quizIndex: number;
-  result: Result;
+  quizzes: Quiz[] = []; //list of all quizzes
+  questions: Questions[] = []; //list of all questions on quiz
+  chosenQuiz: Quiz; //a quiz from randomly generated questions
+  answers: Answer[] = []; //a list of all answers for the quiz
+  answeredQuestion: string; //a string for the answered question
+  questionAnswers: Answer[] = []; //all possible answers for question
+  correctAnswer: Answer; //the correct answer for question
+  selectedAnswer: Answer; //the selected answer for question
+  selectedAnswerString: string; //the selected answer for fill-in-the-blank question
+  givenQuestion: Questions; //the current question to be answered
+  questionsAnswered: number; //the number of questions answered on this quiz
+  numberOfCorrectAnswers: number; //the number of correct answers on this quiz
+  quizIndex: number; //a randomm quiz index when picking a quiz at random
+  result: Result = {
+    resultId: null,
+    qId: null,
+    userAnswer: null,
+    userQuizId: null,
+    correct: null
+  }; //the result of a questiona, passed to API results
 
   constructor(private questionsService: QuestionsService, private answerService: AnswerService,
-    private takeQuizService: TakeQuizService, private quizService: QuizService) { }
+    private takeQuizService: TakeQuizService, private quizService: QuizService, 
+    private resultService: ResultsService) { }
 
   ngOnInit() {
     this.quizService.getQuizzes().subscribe(data => {
@@ -46,6 +53,7 @@ export class TakeQuizComponent implements OnInit {
     //this.startQuiz();
   }
 
+  //gets all questions, includes all functions needed to set up a quiz
   getQuestions(quiz : Quiz) { this.questionsService.getQuestions(quiz).subscribe(data => {
     console.log(data);
     this.questions = data;
@@ -56,6 +64,7 @@ export class TakeQuizComponent implements OnInit {
     this.getAnswers(this.quizzes[this.quizIndex].id);
     }, err => console.log(err));}
 
+    //gets all answers for the questions on the quiz, includes critical functions to set up quiz
   getAnswers(quizId: number) {
     this.answerService.getAnswers(quizId).subscribe(data => {
       console.log(data);
@@ -65,10 +74,21 @@ export class TakeQuizComponent implements OnInit {
     }, err => console.log(err));
   }
 
+  //sends the result of each question asked
+  //TODO: add the userquiz ID
   sendResult(answer: Answer) {
-    
+    console.log(answer.answer);
+    this.result.userAnswer = answer.answer;
+    this.result.qId = answer.questionId;
+    this.result.correct = answer.correct;
+    this.result.userQuizId = 1;
+    this.resultService.sendResult(this.result);
+
+    console.log("result has been sent");
+    console.log(this.result);
   }
 
+  //runs whenever quiz starts; quiz is picked at random from list
   startQuiz() {
     this.quizIndex = Math.floor((Math.random() * this.quizzes.length));
     this.getQuestions(this.quizzes[this.quizIndex]);
@@ -79,6 +99,7 @@ export class TakeQuizComponent implements OnInit {
     console.log("Start quiz has triggered!");
   }
 
+  //runs whenever quiz starts; quiz is generated from random questions in a set category and difficulty
   startRandomQuiz() {
     this.chosenQuiz = this.quizService.randomQuiz;
     this.getQuestions(this.chosenQuiz);
@@ -89,6 +110,7 @@ export class TakeQuizComponent implements OnInit {
     console.log("Start random quiz has triggered!");
   }
 
+  //this runs when an answer is submitted
   submittedAnswer() {
     console.log("answer was submitted");
     console.log(this.selectedAnswer);
@@ -99,6 +121,8 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
+    this.sendResult(this.selectedAnswer);
+
     if (this.chosenQuiz != undefined && this.questionsAnswered < this.chosenQuiz.maxScore 
       || this.questionsAnswered < this.quizzes[this.quizIndex].maxScore)
     {
@@ -109,6 +133,7 @@ export class TakeQuizComponent implements OnInit {
     }
   }
 
+  //this runs when a fill-in-the-blank answer is submitted
   submittedFillAnswer() {
     console.log(`fill answer was submitted`);
     console.log(this.selectedAnswerString);
@@ -127,6 +152,7 @@ export class TakeQuizComponent implements OnInit {
     }
   }
 
+  //this returns the correct answer for the question out of all possible answers for said question
   getCorrectAnswer(possibleAnswers: Answer[]): Answer {
 
     for (var i = 0; i < possibleAnswers.length; i++)
@@ -140,6 +166,7 @@ export class TakeQuizComponent implements OnInit {
     
   }
 
+  //this gets a list of all answers associated with a given question
   getQuestionAnswers(question: Questions) {
 
     for (var i = 0; i < this.answers.length; i++)
@@ -154,6 +181,7 @@ export class TakeQuizComponent implements OnInit {
     
   }
 
+  //this checks whether an answer is correct
   checkAnswer(answer: Answer): boolean {
     if (answer === this.correctAnswer)
     {
@@ -163,6 +191,7 @@ export class TakeQuizComponent implements OnInit {
       return false;
   }
 
+  //this checks whether a fill-in-the-blank answer is correct
   checkFillAnswer(answer: string): boolean {
     if (answer === this.correctAnswer.answer)
     {
