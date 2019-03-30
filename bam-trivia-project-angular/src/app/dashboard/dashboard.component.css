@@ -8,7 +8,14 @@
   padding-right: 0;
 }
 a {
+  padding: 5px 10px;
   text-decoration: none;
+  margin-top: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  background-color: #eee;
+  color: black;
+  border-radius: 4px;
 }
 *, *:after, *:before {
   -webkit-box-sizing: border-box;
