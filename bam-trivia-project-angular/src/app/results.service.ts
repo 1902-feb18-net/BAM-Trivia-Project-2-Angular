@@ -4,7 +4,7 @@ import { Result } from './models/results';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { catchError } from "rxjs/internal/operators";
-
+import 'zone.js/dist/zone-error';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,8 +20,8 @@ export class ResultsService {
   questionResult: Result;
 
   sendResult(result: Result): Observable<Result> {
-    console.log('sent result');
-    return this.http.post<Result>(`${environment.apiUrl}/Results`, result, httpOptions)
+    console.log(`sent result to ${environment.apiUrl}/api/Results`);
+    return this.http.post<Result>(`${environment.apiUrl}/api/Results`, result, httpOptions)
     .pipe(catchError(error => {
       console.log('error:');
       console.log(error);
