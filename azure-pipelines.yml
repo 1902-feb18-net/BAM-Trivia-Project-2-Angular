@@ -71,6 +71,8 @@ steps:
   inputs:
     SonarCloud: sonarcloud
     organization: 1902-feb18-net
+    projectKey: BAM1902triviaangular
+    projectName: BAMTriviaProject2Angular
     scannerMode: CLI
   displayName: Prepare analysis on SonarCloud
 
