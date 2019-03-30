@@ -74,6 +74,8 @@ steps:
     projectKey: BAM1902triviaangular
     projectName: BAMTriviaProject2Angular
     scannerMode: CLI
+    extraProperties: |
+      sonar.projectKey="BAM1902triviaangular"
   displayName: Prepare analysis on SonarCloud
 
 - script: npm run build-ci
