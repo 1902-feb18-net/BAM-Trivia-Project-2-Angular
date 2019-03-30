@@ -1,5 +1,5 @@
 export class Result {
-    resultId: number;
+    // resultId: number;
     userQuizId: number;
     qId: number;
     userAnswer: string;

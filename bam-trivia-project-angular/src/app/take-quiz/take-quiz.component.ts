@@ -33,7 +33,7 @@ export class TakeQuizComponent implements OnInit {
   numberOfCorrectAnswers: number; //the number of correct answers on this quiz
   quizIndex: number; //a randomm quiz index when picking a quiz at random
   result: Result = {
-    resultId: null,
+    // resultId: null,
     qId: null,
     userAnswer: null,
     userQuizId: null,
@@ -82,10 +82,14 @@ export class TakeQuizComponent implements OnInit {
     this.result.qId = answer.questionId;
     this.result.correct = answer.correct;
     this.result.userQuizId = 1;
-    this.resultService.sendResult(this.result);
+    console.log('before sending result');
+    console.log(this.result);
+    this.resultService.sendResult(this.result).subscribe(data => {
+      this.resultService.questionResult = data;
+    });
 
     console.log("result has been sent");
-    console.log(this.result);
+    
   }
 
   //runs whenever quiz starts; quiz is picked at random from list
@@ -121,6 +125,8 @@ export class TakeQuizComponent implements OnInit {
       this.numberOfCorrectAnswers++;
       console.log("answer was correct");
     }
+    console.log('selected answer is')
+    console.log(this.selectedAnswer);
     this.sendResult(this.selectedAnswer);
 
     if (this.chosenQuiz != undefined && this.questionsAnswered < this.chosenQuiz.maxScore 

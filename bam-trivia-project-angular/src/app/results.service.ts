@@ -21,7 +21,8 @@ export class ResultsService {
 
   sendResult(result: Result): Observable<Result> {
     console.log('sent result');
-    return this.http.post<Result>(`${environment.apiUrl}/Results`, result, httpOptions)
+    console.log(result);
+    return this.http.post<Result>(`${environment.apiUrl}/api/Results`, result, httpOptions)
     .pipe(catchError(error => {
       console.log('error:');
       console.log(error);
