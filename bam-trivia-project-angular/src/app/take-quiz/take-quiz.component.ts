@@ -34,7 +34,7 @@ export class TakeQuizComponent implements OnInit {
   numberOfCorrectAnswers: number; //the number of correct answers on this quiz
   quizIndex: number; //a randomm quiz index when picking a quiz at random
   result: Result = {
-    resultId: null,
+    // resultId: null,
     qId: null,
     userAnswer: null,
     userQuizId: null,
