@@ -78,9 +78,9 @@ steps:
   workingDirectory: $(appDir)
   displayName: npm run build-ci
 
-- script: npm run lint
-  workingDirectory: $(appDir)
-  displayName: npm run lint
+# - script: npm run lint
+#   workingDirectory: $(appDir)
+#   displayName: npm run lint
 
 - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
   displayName: Run code analysis
