@@ -20,7 +20,8 @@ export class ResultsService {
   questionResult: Result;
 
   sendResult(result: Result): Observable<Result> {
-    console.log(`sent result to ${environment.apiUrl}/api/Results`);
+    console.log('sent result');
+    console.log(result);
     return this.http.post<Result>(`${environment.apiUrl}/api/Results`, result, httpOptions)
     .pipe(catchError(error => {
       console.log('error:');
