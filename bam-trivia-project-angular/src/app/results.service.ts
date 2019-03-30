@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Result } from './models/results';
 import { Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { catchError } from "rxjs/internal/operators";
 
 
 const httpOptions = {
@@ -16,8 +18,17 @@ export class ResultsService {
   constructor(private http: HttpClient) { }
   
   questionResult: Result;
+
   sendResult(result: Result): Observable<Result> {
     console.log('sent result');
-    return this.http.post<Result>(`${this.API}/Results`, result, httpOptions);
+    console.log(result);
+    return this.http.post<Result>(`${environment.apiUrl}/api/Results`, result, httpOptions)
+    .pipe(catchError(error => {
+      console.log('error:');
+      console.log(error);
+      // could inspect the error for what sort it is
+      // (4xx status code, 5xx status code, httpclient failure itself)
+      return throwError('Encountered an error communicating with the server.');
+    }));;
   }
 }
