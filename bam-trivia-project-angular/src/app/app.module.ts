@@ -13,6 +13,7 @@ import { TakeQuizComponent } from './take-quiz/take-quiz.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ReviewsComponent } from './reviews/reviews.component';
+import { LoginInfoComponent } from './login-info/login-info.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
     LoginComponent,
     LogoutComponent,
     ReviewsComponent,
+    LoginInfoComponent,
   ],
   imports: [
     BrowserModule,
