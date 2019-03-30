@@ -12,6 +12,7 @@ import { distinct } from 'rxjs/internal/operators';
 import { error } from '@angular/compiler/src/util';
 import { elementStyleProp } from '@angular/core/src/render3';
 import { Result } from '../models/results';
+import { UserQuiz } from '../models/userquiz';
 
 @Component({
   selector: 'app-take-quiz',
@@ -33,12 +34,13 @@ export class TakeQuizComponent implements OnInit {
   numberOfCorrectAnswers: number; //the number of correct answers on this quiz
   quizIndex: number; //a randomm quiz index when picking a quiz at random
   result: Result = {
-    // resultId: null,
+    resultId: null,
     qId: null,
     userAnswer: null,
     userQuizId: null,
     correct: null
   }; //the result of a questiona, passed to API results
+  userQuiz: UserQuiz;
 
   constructor(private questionsService: QuestionsService, private answerService: AnswerService,
     private takeQuizService: TakeQuizService, private quizService: QuizService, 
@@ -210,5 +212,23 @@ export class TakeQuizComponent implements OnInit {
   //this returns the quiz percentage (ex: 80, 90, 20, etc.)
   calculateScore(): number {
     return this.numberOfCorrectAnswers * 10;
+  }
+
+  makeUserQuiz(): void {
+    this.userQuiz = new UserQuiz;
+    this.userQuiz.userId = 2;
+    this.userQuiz.userName = "mpkagel";
+    this.userQuiz.quizId = 1;
+    this.userQuiz.quizMaxScore = 10;
+    this.userQuiz.quizActualScore = 5;
+    // this.userQuiz.quizDate = "";
+
+   
+    this.takeQuizService.addUserQuiz(this.userQuiz).subscribe(data => {
+      console.log(data);
+      // this.quizzes = data;
+    }, err => console.log(err));
+
+    //this.startQuiz();
   }
 }

@@ -19,13 +19,19 @@ export class TakeQuizService {
   // public QUIZZES_API = `${this.API}/Quizzes`;
   constructor(private http: HttpClient) { }
 
-  addUserQuiz(userquiz: UserQuiz): Observable<Quiz> {
+  account: Account = JSON.parse(sessionStorage.getItem('account'));
+  // username: string = this.account
+
+  addUserQuiz(userquiz: UserQuiz): Observable<UserQuiz> {
     // /Users/{Id}/Quizzes
-    console.log(`${environment.apiUrl}/api/Users/
-    ${sessionStorage.getItem('account')['username']}/Quizzes`);
-    console.log(sessionStorage.getItem('account')['username']);
-    return this.http.post<Quiz>(`${environment.apiUrl}/api/Users/
-    ${sessionStorage.getItem('account')['username']}/Quizzes`, {}, httpOptions)
+    // console.log(account);
+    // console.log(`${this.username}`);
+    console.log(this.account['userId']);
+    console.log(userquiz);
+    // this.url = ;
+    // this.url = this.url.replace("%20", "");
+    // console.log(this.url);
+    return this.http.post<UserQuiz>(`${environment.apiUrl}/api/Users/${this.account['userId']}/Quizzes`, userquiz, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');
         console.log(error);

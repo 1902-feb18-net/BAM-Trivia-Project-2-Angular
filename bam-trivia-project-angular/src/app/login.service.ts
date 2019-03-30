@@ -31,6 +31,7 @@ export class LoginService {
     // when we get that, save in session storage the logged in user's info
     // (so if client refreshes page, we still have it)
     sessionStorage.setItem('account', JSON.stringify(account));
+    // sessionStorage.setItem('userid', account.userid);
     // return the account details to the one calling this method
     return account;
   }
