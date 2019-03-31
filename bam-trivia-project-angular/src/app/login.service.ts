@@ -12,6 +12,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
   
+  username: string;
+  id: number;
+
   async login(login: Login): Promise<Account> {
     // first, send request to login
     const url = `${environment.apiUrl}/api/Users/Login`;

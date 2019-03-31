@@ -13,6 +13,7 @@ import { error } from '@angular/compiler/src/util';
 import { elementStyleProp } from '@angular/core/src/render3';
 import { Result } from '../models/results';
 import { UserQuiz } from '../models/userquiz';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-take-quiz',
@@ -44,7 +45,7 @@ export class TakeQuizComponent implements OnInit {
 
   constructor(private questionsService: QuestionsService, private answerService: AnswerService,
     private takeQuizService: TakeQuizService, private quizService: QuizService, 
-    private resultService: ResultsService) { }
+    private resultService: ResultsService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.quizService.getQuizzes().subscribe(data => {
@@ -96,6 +97,7 @@ export class TakeQuizComponent implements OnInit {
   //runs whenever quiz starts; quiz is picked at random from list
   startQuiz() {
     this.quizIndex = Math.floor((Math.random() * this.quizzes.length));
+    this.makeUserQuiz(this.quizzes[this.quizIndex]);
     this.getQuestions(this.quizzes[this.quizIndex]);
 
      this.questionsAnswered = 0;
@@ -107,6 +109,7 @@ export class TakeQuizComponent implements OnInit {
   //runs whenever quiz starts; quiz is generated from random questions in a set category and difficulty
   startRandomQuiz() {
     this.chosenQuiz = this.quizService.randomQuiz;
+    this.makeUserQuiz(this.chosenQuiz);
     this.getQuestions(this.chosenQuiz);
 
      this.questionsAnswered = 0;
@@ -213,13 +216,14 @@ export class TakeQuizComponent implements OnInit {
     return this.numberOfCorrectAnswers * 10;
   }
 
-  makeUserQuiz(): void {
+  makeUserQuiz(quiz: Quiz): void {
+    // this.userQuiz.userQuizId = 0;
     this.userQuiz = new UserQuiz;
-    this.userQuiz.userId = 2;
-    this.userQuiz.userName = "mpkagel";
-    this.userQuiz.quizId = 1;
-    this.userQuiz.quizMaxScore = 10;
-    this.userQuiz.quizActualScore = 5;
+    this.userQuiz.userId = this.loginService.id;
+    this.userQuiz.userName = this.loginService.username;
+    this.userQuiz.quizId = quiz.id;
+    this.userQuiz.quizMaxScore = quiz.maxScore;
+    this.userQuiz.quizActualScore = 11;
     // this.userQuiz.quizDate = "";
 
    
