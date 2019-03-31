@@ -3,6 +3,8 @@ import { QuizService } from '../quiz.service';
 import { Quiz } from '../models/quiz';
 import { Questions } from '../models/questions';
 import { QuestionsService } from '../questions.service';
+import { UserQuiz } from '../models/userquiz';
+import { Account } from '../models/account';
 
 @Component({
   selector: 'app-quiz-list',
@@ -14,6 +16,8 @@ export class QuizListComponent implements OnInit {
   quizzes: Quiz[];
   questions: Questions[];
   randomQuiz: Quiz;
+  userQuizzes: UserQuiz[] = [];
+  user: Account;
    constructor(private quizService: QuizService, private questionsService: QuestionsService) { }
   //constructor(private quizService: QuizService){}
 
@@ -24,6 +28,9 @@ export class QuizListComponent implements OnInit {
     }, err => console.log(err));
     if (sessionStorage.getItem('account') !== null) {
       console.log(sessionStorage.getItem('account'));
+      console.log("got stored account info");
+      this.user = JSON.parse(sessionStorage.getItem('account'));
+      console.log(this.user.userId);
     }
   }
 
@@ -32,4 +39,13 @@ export class QuizListComponent implements OnInit {
     this.questions = data;
   }, err => console.log(err));}
 
+  getUserQuizzes(user: Account) {
+      this.quizService.getUserQuizzes(user).subscribe(data => {
+      console.log(data);
+      this.userQuizzes = data;
+    }, err => console.log(err));}
+    
 }
+
+
+
