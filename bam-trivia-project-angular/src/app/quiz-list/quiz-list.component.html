@@ -4,6 +4,16 @@
 <div>
   <h2>Quiz List</h2>
   <div>
+    <button (click)="getUserQuizzes(user)">Get Past Quizzes</button>
+    <ol *ngIf="userQuizzes.length > 0">
+      <li *ngFor="let u of userQuizzes">
+        <p>
+          Quiz Id: {{u.quizId}}
+          Score: {{u.quizActualScore}}/{{u.quizMaxScore}}
+          Date: {{u.quizDate}}
+        </p>
+      </li>
+    </ol>
   </div>
 </div>
 <br/>
