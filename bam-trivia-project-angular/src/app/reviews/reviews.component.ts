@@ -27,21 +27,39 @@ export class ReviewsComponent implements OnInit {
   reviewsMax: number = 0;
   // boolQuizReviews: Boolean = false;
 
+  // checks if the review array have any problems
+  nullUndefinedZeroCheck(arr: Review[]) {
+    if (arr === null || arr === undefined || arr.length === 0) {
+      return false;
+    }
+    return true;
+  }
+
+  setZeroForStatistics() {
+    this.reviewsAverage = 0;
+    this.reviewsMax = 0;
+    this.reviewsMin = 0;
+  }
+
   onBARClick() {
     console.log('all reviews button clicked');
     this.boolAllReviews = !this.boolAllReviews;
+    this.boolUserReviews = false;
+    this.setZeroForStatistics();
     this.calculateAverage(this.allReviews);
     this.calculateMinMax(this.allReviews);
-    this.boolUserReviews = false;
     console.log(`boolAllReviews is now ${this.boolAllReviews}`)
   }
 
   onBURClick() {
     console.log('user reviews button clicked');
     this.boolUserReviews = !this.boolUserReviews;
-    this.calculateAverage(this.userReviews);
-    this.calculateMinMax(this.userReviews);
     this.boolAllReviews = false;
+    this.setZeroForStatistics();
+    if(this.nullUndefinedZeroCheck(this.userReviews)){
+      this.calculateAverage(this.userReviews);
+      this.calculateMinMax(this.userReviews);
+    }
     console.log(`boolUserReviews is now ${this.boolUserReviews}`)
   }
 
@@ -101,7 +119,7 @@ export class ReviewsComponent implements OnInit {
         sum += review.ratings;
       }
     });
-    if(len !== null){
+    if(len !== 0){
       this.reviewsAverage = sum / len;
     } else {
       this.reviewsAverage = 0;
