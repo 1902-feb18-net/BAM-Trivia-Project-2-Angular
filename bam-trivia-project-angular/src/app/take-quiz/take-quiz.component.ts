@@ -81,17 +81,13 @@ export class TakeQuizComponent implements OnInit {
   //sends the result of each question asked
   //TODO: add the userquiz ID
   sendResult(answer: Answer) {
-    console.log("here is the answer sent to sendResult");
-    console.log(answer);
-    this.result.userAnswer = answer.answer;
-    this.result.qId = answer.questionId;
-    this.result.correct = answer.correct;
-    this.result.userQuizId = 1;
-    console.log(this.result);
-    this.quizResults.push(this.result); 
-    console.log("here is a list of question results");
-    console.log(this.quizResults);
-    this.resultService.sendResult(this.result).subscribe(data => {
+    let tempResult: Result = new Result;
+    tempResult.userAnswer = answer.answer;
+    tempResult.qId = answer.questionId;
+    tempResult.correct = answer.correct;
+    tempResult.userQuizId = 1;
+    this.quizResults.push(tempResult); 
+    this.resultService.sendResult(tempResult).subscribe(data => {
       this.resultService.questionResult = data;
     });
 
