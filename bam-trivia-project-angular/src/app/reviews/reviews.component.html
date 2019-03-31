@@ -8,18 +8,25 @@
 <button (click)="onBURClick()">Show User Reviews</button>
 <!-- <button (click)="onBQRClick()">Show Quiz Reviews</button> -->
 
-<ul *ngIf="boolAllReviews === true">
-  <li *ngFor="let r of allReviews">
-    <p>user id: {{r.userId}}</p>
-    <p>user quiz id: {{r.quizId}}</p>
-    <p>user ratings: {{r.ratings}}</p>
-  </li>
-</ul>
+<!-- <div *ngIf="boolAllReviews === true && account.roles[0] === 'admin'"> -->
+<div *ngIf="boolAllReviews === true">
+  <p>Reviews Average Ratings: {{reviewsAverage}}</p>
+  <p>Minimum Rating: {{reviewsMin}}</p>
+  <p>Maximum Rating: {{reviewsMax}}</p>
+  <ul>
+    <li *ngFor="let r of allReviews">
+      <p>user id: {{r.userId}}, quiz id: {{r.quizId}}, review rating: {{r.ratings}} </p>
+    </li>
+  </ul>
+</div>
 
-<ul *ngIf="boolUserReviews === true">
-  <li *ngFor="let ur of userReviews">
-    <p>user id: {{ur.userId}}</p>
-    <p>user quiz id: {{ur.quizId}}</p>
-    <p>user ratings: {{ur.ratings}}</p>
-  </li>
-</ul>
+<div *ngIf="boolUserReviews === true">
+  <p>Reviews Average Ratings: {{reviewsAverage}}</p>
+  <p>Minimum Rating: {{reviewsMin}}</p>
+  <p>Maximum Rating: {{reviewsMax}}</p>
+  <ul>
+    <li *ngFor="let r of userReviews">
+      <p>user id: {{r.userId}}, quiz id: {{r.quizId}}, review rating: {{r.ratings}} </p>
+    </li>
+  </ul>
+</div>
