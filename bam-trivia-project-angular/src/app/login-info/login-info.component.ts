@@ -9,6 +9,7 @@ export class LoginInfoComponent implements OnInit {
 
   username: string;
   role: string;
+  id: number;
 
   constructor() { }
 
@@ -16,6 +17,7 @@ export class LoginInfoComponent implements OnInit {
     if (sessionStorage.getItem('account') !== null) {
       this.username = JSON.parse(sessionStorage.getItem('account'))['username'];
       this.role = JSON.parse(sessionStorage.getItem('account'))['roles'];
+      this.id = JSON.parse(sessionStorage.getItem('account'))['userId'];
     } 
 
   }
