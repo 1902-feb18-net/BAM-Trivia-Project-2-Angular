@@ -1,3 +1,32 @@
 <p>
   reviews works!
 </p>
+<p>{{account.username}}'s id is: {{account.userId}}</p>
+
+<!-- view all reviews -->
+<button (click)="onBARClick()">Show All Reviews</button>
+<button (click)="onBURClick()">Show User Reviews</button>
+<!-- <button (click)="onBQRClick()">Show Quiz Reviews</button> -->
+
+<!-- <div *ngIf="boolAllReviews === true && account.roles[0] === 'admin'"> -->
+<div *ngIf="boolAllReviews === true">
+  <p>Reviews Average Ratings: {{reviewsAverage}}</p>
+  <p>Minimum Rating: {{reviewsMin}}</p>
+  <p>Maximum Rating: {{reviewsMax}}</p>
+  <ul>
+    <li *ngFor="let r of allReviews">
+      <p>user id: {{r.userId}}, quiz id: {{r.quizId}}, review rating: {{r.ratings}} </p>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="boolUserReviews === true">
+  <p>Reviews Average Ratings: {{reviewsAverage}}</p>
+  <p>Minimum Rating: {{reviewsMin}}</p>
+  <p>Maximum Rating: {{reviewsMax}}</p>
+  <ul>
+    <li *ngFor="let r of userReviews">
+      <p>user id: {{r.userId}}, quiz id: {{r.quizId}}, review rating: {{r.ratings}} </p>
+    </li>
+  </ul>
+</div>
