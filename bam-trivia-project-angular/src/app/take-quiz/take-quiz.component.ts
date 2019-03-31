@@ -34,6 +34,7 @@ export class TakeQuizComponent implements OnInit {
   questionsAnswered: number; //the number of questions answered on this quiz
   numberOfCorrectAnswers: number; //the number of correct answers on this quiz
   quizIndex: number; //a randomm quiz index when picking a quiz at random
+  answerIndex: number; //keeps track of the index of answer
   result: Result = {
     // resultId: null,
     qId: null,
@@ -74,6 +75,7 @@ export class TakeQuizComponent implements OnInit {
       console.log(data);
       this.answers = data;
       this.getQuestionAnswers(this.questions[0]);
+
       this.getCorrectAnswer(this.questionAnswers)
     }, err => console.log(err));
   }
@@ -81,10 +83,29 @@ export class TakeQuizComponent implements OnInit {
   //sends the result of each question asked
   //TODO: add the userquiz ID
   sendResult(answer: Answer) {
+    console.log("here is the sent answer");
+    console.log(answer);
     let tempResult: Result = new Result;
     tempResult.userAnswer = answer.answer;
     tempResult.qId = answer.questionId;
     tempResult.correct = answer.correct;
+    tempResult.userQuizId = 1;
+    this.quizResults.push(tempResult); 
+    this.resultService.sendResult(tempResult).subscribe(data => {
+      this.resultService.questionResult = data;
+    });
+
+    console.log("result has been sent");
+    
+  }
+
+  sendResultString(answer: string) {
+    console.log("here is the sent answer");
+    console.log(answer);
+    let tempResult: Result = new Result;
+    tempResult.userAnswer = answer;
+    tempResult.qId = this.givenQuestion.id;
+    tempResult.correct = answer === this.correctAnswer.answer ? true : false; 
     tempResult.userQuizId = 1;
     this.quizResults.push(tempResult); 
     this.resultService.sendResult(tempResult).subscribe(data => {
@@ -100,7 +121,8 @@ export class TakeQuizComponent implements OnInit {
     this.quizIndex = Math.floor((Math.random() * this.quizzes.length));
     this.makeUserQuiz(this.quizzes[this.quizIndex]);
     this.getQuestions(this.quizzes[this.quizIndex]);
-
+    console.log("here are the answers for the question");
+    console.log(this.questionAnswers);
      this.questionsAnswered = 0;
      this.numberOfCorrectAnswers = 0;
      this.quizResults = [];
@@ -113,7 +135,6 @@ export class TakeQuizComponent implements OnInit {
     this.chosenQuiz = this.quizService.randomQuiz;
     this.makeUserQuiz(this.chosenQuiz);
     this.getQuestions(this.chosenQuiz);
-
      this.questionsAnswered = 0;
      this.numberOfCorrectAnswers = 0;
      this.quizResults = [];
@@ -151,13 +172,13 @@ export class TakeQuizComponent implements OnInit {
   submittedFillAnswer() {
     console.log(`fill answer was submitted`);
     console.log(this.selectedAnswerString);
-    this.sendResult(this.selectedAnswer);
     this.questionsAnswered++;
     if(this.checkFillAnswer(this.selectedAnswerString))
     {
       this.numberOfCorrectAnswers++;
       console.log("fill answer was correct");
     }
+    this.sendResultString(this.selectedAnswerString);
     if (this.questionsAnswered < 10)
     {
       this.givenQuestion = this.questions[this.questionsAnswered];
