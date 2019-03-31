@@ -39,19 +39,11 @@ export class QuizService {
         // (4xx status code, 5xx status code, httpclient failure itself)
         return throwError('Encountered an error communicating with the server.');
       }));
-      // .pipe(
-      //   catchError(this.handleError('addHero', hero))
-      // );
-
-   
-    // return this.http.get<Quiz>(`${this.API}/Quizzes/Random`)
-    //   .pipe(
-    //     catchError(this.handleError)
-    //   );
   }
 
-  // get(id: string) {
-  //   return this.http.get(`${this.QUIZZES_API}/${id}`);
+  // getUserQuizzes(): Observable<Quiz[]> {
+  //   console.log('getUserQuizzes');
+  //   return this.http.post
   // }
-  // can add other crud functionality later like add
+
 }
