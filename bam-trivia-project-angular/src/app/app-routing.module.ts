@@ -7,12 +7,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AnswerListComponent } from './answer-list/answer-list.component';
 import { TakeQuizComponent } from './take-quiz/take-quiz.component';
 import { AuthGuard } from './auth.guard';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'quiz-list', component: QuizListComponent, canActivate: [AuthGuard] },
   { path: 'answers', component: AnswerListComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'reviews', component: ReviewsComponent },
   { path: 'take-quiz', component: TakeQuizComponent, canActivate: [AuthGuard] }
 
 ];

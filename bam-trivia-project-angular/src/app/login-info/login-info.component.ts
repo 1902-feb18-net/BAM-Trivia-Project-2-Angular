@@ -10,7 +10,8 @@ export class LoginInfoComponent implements OnInit {
 
   username: string;
   role: string;
-  id: number
+  id: number;
+
 
   constructor(private loginService: LoginService) { }
 

@@ -1,6 +1,6 @@
 export class Review {
-    Qid: number;
-    QuizId: number;
-    UserId: number;
-    Rratings: number;
+    // not needed since we will only do for quiz (Qid: number)
+    quizId: number;
+    userId: number;
+    ratings: number;
 }
