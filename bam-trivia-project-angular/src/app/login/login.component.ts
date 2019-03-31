@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 
   login: Login = new Login();
   account: Account;
+  unauthorized: string;
 
   constructor(
     private api: LoginService,
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.unauthorized = null;
   }
 
   onSubmit() {
@@ -36,6 +37,10 @@ export class LoginComponent implements OnInit {
       error => {
         // should inspect error and put useful info on page
         console.log(error);
+        if (error.status === 401 || error.status === 403)
+        {
+          this.unauthorized = "Bad login credentials, please try again.";
+        }
       });
   }
 
