@@ -16,7 +16,6 @@ export class LogoutService {
     return this.http.post(url, {}, { withCredentials: true }).pipe(res => {
       // then, send request to details
       sessionStorage.removeItem('account');
-      sessionStorage.removeItem('username');
       return res;
     });
   }

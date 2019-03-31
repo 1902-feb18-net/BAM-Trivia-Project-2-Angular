@@ -14,9 +14,4 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  // getQuizzes(): void {
-  //   this.QuizService.getQuizzes()
-  //     .subscribe(quizzes => this.quizzes = quizzes.slice(1, 5));
-  // }
 }
