@@ -4,12 +4,28 @@
 <p>{{account.username}}'s id is: {{account.userId}}</p>
 
 <!-- view all reviews -->
-<button (click)="onBARClick()">Show All Reviews</button>
+<div *ngIf="account.roles[0] === 'admin'">
+  <button (click)="onBARClick()">Show All Reviews</button>
+</div>
+
 <button (click)="onBURClick()">Show User Reviews</button>
 <!-- <button (click)="onBQRClick()">Show Quiz Reviews</button> -->
 
+<div>
+  <form name="submit-review-form" (ngSubmit)="onSubmitReview()">
+    <label> User Quiz Id:
+      <input type="number" [(ngModel)]="userQuizIdInput" value="1" name="quizid-input" min="1" required>
+    </label>
+    <label> User Rating for Quiz:
+      <input type="number" [(ngModel)]="userRatingNum" value="1" name="review-rating" min="1" max="10" required>
+    </label>
+    <button type="submit">Submit Review</button>
+  </form>
+  <p *ngIf="validReviewInput === false">Invalid review submitions, ratings min from 1-10, and quiz id min is 1</p>
+</div>
+
 <!-- <div *ngIf="boolAllReviews === true && account.roles[0] === 'admin'"> -->
-<div *ngIf="boolAllReviews === true && allReviews">
+<div *ngIf="boolAllReviews === true && allReviews.length > 0">
   <p>Reviews Average Ratings: {{reviewsAverage}}</p>
   <p>Minimum Rating: {{reviewsMin}}</p>
   <p>Maximum Rating: {{reviewsMax}}</p>

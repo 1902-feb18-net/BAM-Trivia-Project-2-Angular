@@ -17,7 +17,7 @@ export class ReviewsComponent implements OnInit {
   quizReviews: Review[] = [];
   allReviews: Review[] = [];
   userReviews: Review[] = [];
-  review: Review;
+  review: Review = new Review;
   quiz: Quiz;
   account: Account;
   boolAllReviews: Boolean = false;
@@ -25,11 +25,15 @@ export class ReviewsComponent implements OnInit {
   reviewsAverage: Number = 0;
   reviewsMin: number = 0;
   reviewsMax: number = 0;
+  userRatingNum: number = 1;
+  userQuizIdInput: number = 1;
+  validReviewInput: boolean = true;
   // boolQuizReviews: Boolean = false;
 
   // checks if the review array have any problems
   nullUndefinedZeroCheck(arr: Review[]) {
     if (arr === null || arr === undefined || arr.length === 0) {
+      console.log('Array is found empty?')
       return false;
     }
     return true;
@@ -41,13 +45,38 @@ export class ReviewsComponent implements OnInit {
     this.reviewsMin = 0;
   }
 
+  onSubmitReview() {
+    console.log("YAyyy");
+    console.log('user quiz id input is: ', this.userQuizIdInput)
+    console.log('user rating input is: ', this.userRatingNum)
+    if(this.userQuizIdInput <= 0 || this.userRatingNum <= 0 || this.userRatingNum > 10) {
+      this.validReviewInput = false;
+      console.log('Invalid review input, min is 0, max 10 for ratings');
+    }
+    else {
+      this.validReviewInput = true;
+      console.log('review sanity check')
+      console.log(this.review);
+      this.review.quizId = this.userQuizIdInput;
+      this.review.ratings = this.userRatingNum;
+      this.review.userId = this.account.userId;
+      console.log('review before posting')
+      console.log(this.review);
+      this.postUserReview(this.review); 
+      // things worked out and now lets refresh our list
+      this.getUserReviews(this.account);
+    }
+  }
+
   onBARClick() {
     console.log('all reviews button clicked');
     this.boolAllReviews = !this.boolAllReviews;
     this.boolUserReviews = false;
     this.setZeroForStatistics();
-    this.calculateAverage(this.allReviews);
-    this.calculateMinMax(this.allReviews);
+    if (this.nullUndefinedZeroCheck(this.allReviews)) {
+      this.calculateAverage(this.allReviews);
+      this.calculateMinMax(this.allReviews);
+    }
     console.log(`boolAllReviews is now ${this.boolAllReviews}`)
   }
 
