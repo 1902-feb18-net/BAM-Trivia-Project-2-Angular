@@ -23,14 +23,8 @@ export class TakeQuizService {
   // username: string = this.account
 
   addUserQuiz(userquiz: UserQuiz): Observable<UserQuiz> {
-    // /Users/{Id}/Quizzes
-    // console.log(account);
-    // console.log(`${this.username}`);
     console.log(this.account['userId']);
     console.log(userquiz);
-    // this.url = ;
-    // this.url = this.url.replace("%20", "");
-    // console.log(this.url);
     return this.http.post<UserQuiz>(`${environment.apiUrl}/api/Users/${this.account['userId']}/Quizzes`, userquiz, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');

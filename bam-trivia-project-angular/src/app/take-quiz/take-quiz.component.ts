@@ -217,6 +217,7 @@ export class TakeQuizComponent implements OnInit {
   }
 
   makeUserQuiz(quiz: Quiz): void {
+    // this.userQuiz.userQuizId = 0;
     this.userQuiz = new UserQuiz;
     this.userQuiz.userId = this.loginService.id;
     this.userQuiz.userName = this.loginService.username;
