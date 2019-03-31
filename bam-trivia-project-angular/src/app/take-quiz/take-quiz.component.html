@@ -37,4 +37,9 @@
 </div>
 <div *ngIf="questionsAnswered >= 10">
   <h2>You received {{numberOfCorrectAnswers}} / 10!</h2>
+  <ol>
+    <li *ngFor="let r of quizResults">
+      <p>{{r.userAnswer}}: {{r.correct}}</p>
+    </li>
+  </ol>
 </div>
