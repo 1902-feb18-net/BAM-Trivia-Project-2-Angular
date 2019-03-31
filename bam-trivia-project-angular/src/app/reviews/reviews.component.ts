@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Quiz } from '../models/quiz';
 import { Review } from '../models/review';
 import { Account } from '../models/account';
-import { QuizService } from '../quiz.service';
+// import { QuizService } from '../quiz.service';
 import { ReviewService } from '../review.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ReviewService } from '../review.service';
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor(private reviewService: ReviewService, private quizService: QuizService) { }
+  constructor(private reviewService: ReviewService) { }
 
   quizReviews: Review[] = [];
   allReviews: Review[] = [];
