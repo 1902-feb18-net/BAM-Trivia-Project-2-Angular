@@ -9,7 +9,7 @@
 <!-- <button (click)="onBQRClick()">Show Quiz Reviews</button> -->
 
 <!-- <div *ngIf="boolAllReviews === true && account.roles[0] === 'admin'"> -->
-<div *ngIf="boolAllReviews === true">
+<div *ngIf="boolAllReviews === true && allReviews">
   <p>Reviews Average Ratings: {{reviewsAverage}}</p>
   <p>Minimum Rating: {{reviewsMin}}</p>
   <p>Maximum Rating: {{reviewsMax}}</p>
@@ -20,7 +20,7 @@
   </ul>
 </div>
 
-<div *ngIf="boolUserReviews === true">
+<div *ngIf="boolUserReviews === true && userReviews.length > 0">
   <p>Reviews Average Ratings: {{reviewsAverage}}</p>
   <p>Minimum Rating: {{reviewsMin}}</p>
   <p>Maximum Rating: {{reviewsMax}}</p>
@@ -29,4 +29,8 @@
       <p>user id: {{r.userId}}, quiz id: {{r.quizId}}, review rating: {{r.ratings}} </p>
     </li>
   </ul>
+</div>
+
+<div *ngIf="boolUserReviews === true && userReviews.length === 0">
+  <p>You currently haven't made any reviews</p>
 </div>
