@@ -5,10 +5,10 @@
 
 <!-- view all reviews -->
 <div *ngIf="account.roles[0] === 'admin'">
-  <button (click)="onBARClick()">Show All Reviews</button>
+  <button id="BAR-click" (click)="onBARClick()">Show All Reviews</button>
 </div>
 
-<button (click)="onBURClick()">Show User Reviews</button>
+<button id="BUR-click" (click)="onBURClick()">{{showBUR}}</button>
 <!-- <button (click)="onBQRClick()">Show Quiz Reviews</button> -->
 
 <div>

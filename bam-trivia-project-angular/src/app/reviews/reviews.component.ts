@@ -28,6 +28,7 @@ export class ReviewsComponent implements OnInit {
   userRatingNum: number = 1;
   userQuizIdInput: number = 1;
   validReviewInput: boolean = true;
+  showBUR: string = "Show User Reviews";
   // boolQuizReviews: Boolean = false;
 
   // checks if the review array have any problems
@@ -63,7 +64,8 @@ export class ReviewsComponent implements OnInit {
       console.log('review before posting')
       console.log(this.review);
       this.postUserReview(this.review); 
-      // things worked out and now lets refresh our list
+      this.boolUserReviews = false;
+      this.showBUR = "Show User Reviews";
       this.getUserReviews(this.account);
     }
   }
@@ -82,10 +84,13 @@ export class ReviewsComponent implements OnInit {
 
   onBURClick() {
     console.log('user reviews button clicked');
+    // things worked out and now lets refresh our list
     this.boolUserReviews = !this.boolUserReviews;
     this.boolAllReviews = false;
+    this.showBUR = this.boolUserReviews ? "Hide User Reviews" : "Show User Reviews";
     this.setZeroForStatistics();
     if(this.nullUndefinedZeroCheck(this.userReviews)){
+      this.getUserReviews(this.account);
       this.calculateAverage(this.userReviews);
       this.calculateMinMax(this.userReviews);
     }
