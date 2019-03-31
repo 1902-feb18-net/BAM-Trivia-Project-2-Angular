@@ -4,13 +4,13 @@
 
 
 <h2 *ngIf="givenQuestion && questionsAnswered < 10">Quiz Question {{  questionsAnswered+1  }}</h2>
-<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple' && questionsAnswered < 10">
-  {{givenQuestion.qstring}}
+<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple' && questionsAnswered < 10" style="color: white">
+  <p>{{givenQuestion.qstring}}</p>
   <form name="my-quiz-form" #myForm="ngForm" (ngSubmit)="submittedAnswer();">
     <ol>
       <li *ngFor="let a of questionAnswers">
         <input type="radio" [(ngModel)]="selectedAnswer" [value]="a" name="quizAnswer">
-        <label for="a.answer">{{a.answer}}</label>
+        <label for="a.answer" style="color: white">{{a.answer}}</label>
       </li>
     </ol>
     <button type="submit">Submit Answer</button>
