@@ -10,7 +10,7 @@ import { Quiz } from '../models/quiz';
 })
 export class QuestionsComponent implements OnInit {
   questions: Questions[];
-  constructor(private questionsService: QuestionsService, private quiz: Quiz) { }
+  constructor(private questionsService: QuestionsService) { }
 
   ngOnInit() {
 
