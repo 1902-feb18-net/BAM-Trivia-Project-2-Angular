@@ -1,7 +1,13 @@
-<form (ngSubmit)="onSubmit()">
+<div class="row">
+  <div class="col-md-4">
 
-  <input type="text" [(ngModel)]="quiz.category" placeholder="Category" required name="category" />
-  <input type="number" [(ngModel)]="quiz.difficulty" placeholder="Difficulty" required name="difficulty" />
+      <form class="form-inline" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+        <input style="margin: 1em" class="form-control" type="text" [(ngModel)]="quiz.category" placeholder="Category" required name="category" />
+        <input style="margin: 1em" class="form-control" type="number" [(ngModel)]="quiz.difficulty" placeholder="Difficulty" required name="difficulty" />
 
-  <button type="submit">Submit Random Quiz</button>
-</form>
+        <button style="margin-left: 1em" class="btn btn-info" type="submit">Create Random Quiz</button>
+      </div>
+      </form>
+  </div>
+</div>

@@ -7,4 +7,14 @@ h2 {
 
 div {
     color: white;
+    background-color: black;
+}
+
+.full{
+    margin-bottom: 100%;
+    background-color: black;
+}
+
+footer {
+    background-color: black;
 }

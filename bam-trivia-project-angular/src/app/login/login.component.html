@@ -1,9 +1,13 @@
-
+<div style="color: white; background-color: black">
 <span>{{unauthorized}}</span>
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" class="form-inline">
+    <div class="form-group">
 
-  <input type="text" [(ngModel)]="login.username" placeholder="Username" required name="username" />
-  <input type="password" [(ngModel)]="login.password" placeholder="Password" required name="password" />
+  <input class="form-control" style="margin: 1em" type="text" [(ngModel)]="login.username" placeholder="Username" required name="username" />
+  <input class="form-control" style="margin-top: 1em; margin-bottom: 1em; margin-right: 1em" type="password" [(ngModel)]="login.password" placeholder="Password" required name="password" />
 
-  <button type="submit">Login</button>
+</div>
+<button type="submit" style="margin-top: 1em; margin-bottom: 1em" class="btn btn-primary">Login</button>
+
 </form>
+</div>

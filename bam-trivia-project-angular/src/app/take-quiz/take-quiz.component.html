@@ -1,10 +1,13 @@
 <app-quiz></app-quiz>
-<button (click)="startQuiz();" [disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Quiz!</button>
-<button (click)="startRandomQuiz();" [disabled]="questionsAnswered != undefined && questionsAnswered != null">Generate Quiz!</button>
-
+<div style="margin: 1em">
+<button style="margin-right: 1em" class="btn btn-primary" (click)="startQuiz();" 
+[disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Random Quiz!</button>
+<button class="btn btn-primary" (click)="startRandomQuiz();" 
+[disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Generated Quiz!</button>
+</div>
 
 <h2 *ngIf="givenQuestion && questionsAnswered < 10">Quiz Question {{  questionsAnswered+1  }}</h2>
-<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple' && questionsAnswered < 10" style="color: white">
+<div *ngIf="givenQuestion && givenQuestion.type === 'Multiple' && questionsAnswered < 10">
   <p>{{givenQuestion.qstring}}</p>
   <form name="my-quiz-form" #myForm="ngForm" (ngSubmit)="submittedAnswer();">
     <ol>
@@ -13,7 +16,7 @@
         <label for="a.answer" style="color: white">{{a.answer}}</label>
       </li>
     </ol>
-    <button type="submit">Submit Answer</button>
+    <button class="btn btn-secondary" type="submit">Submit Answer</button>
   </form>
 </div>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Bool' && questionsAnswered < 10">
@@ -25,14 +28,14 @@
         <label for="a.answer">{{a.answer}}</label>
       </li>
     </ol>
-    <button type="submit">Submit Answer</button>
+    <button class="btn btn-secondary" type="submit">Submit Answer</button>
   </form>
 </div>
 <div *ngIf="givenQuestion && givenQuestion.type === 'Fill' && questionsAnswered < 10">
   {{givenQuestion.qstring}}
   <form name="my-quiz-form" (ngSubmit)="submittedFillAnswer()">
       <input type="text" [(ngModel)]="selectedAnswerString" [value]="text" name="quizAnswer">
-    <button type="submit">Submit Answer</button>
+    <button class="btn btn-secondary" style="margin-left: 1em" type="submit">Submit Answer</button>
   </form>
 </div>
 <div *ngIf="questionsAnswered >= 10">
