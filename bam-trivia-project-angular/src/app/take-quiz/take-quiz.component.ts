@@ -166,6 +166,11 @@ export class TakeQuizComponent implements OnInit {
     this.getQuestionAnswers(this.questions[this.questionsAnswered]);
     this.getCorrectAnswer(this.questionAnswers);
     }
+    else
+    {
+      console.log(`${this.numberOfCorrectAnswers} was sent to update the latest userquiz`);
+      this.setUserQuizScore(this.numberOfCorrectAnswers);
+    }
   }
 
   //this runs when a fill-in-the-blank answer is submitted
@@ -186,6 +191,15 @@ export class TakeQuizComponent implements OnInit {
       this.getQuestionAnswers(this.questions[this.questionsAnswered]);
       this.getCorrectAnswer(this.questionAnswers);
     }
+    else
+    {
+      console.log(`${this.numberOfCorrectAnswers} was sent to update the latest userquiz`);
+      this.setUserQuizScore(this.numberOfCorrectAnswers);
+    }
+  }
+
+  setUserQuizScore(score: number){
+    this.takeQuizService.updateMaxUserQuizScore(score);
   }
 
   //this returns the correct answer for the question out of all possible answers for said question

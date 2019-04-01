@@ -48,4 +48,14 @@ export class TakeQuizService {
       }));
     }
   
+    updateMaxUserQuizScore(score: number): Observable<number> {
+      return this.http.put<number>(`${environment.apiUrl}/api/Users/UserQuiz`, score, httpOptions)
+      .pipe(catchError(error => {
+        console.log('error:');
+        console.log(error);
+        // could inspect the error for what sort it is
+        // (4xx status code, 5xx status code, httpclient failure itself)
+        return throwError('Encountered an error communicating with the server.');
+      }));
+    }
 }
