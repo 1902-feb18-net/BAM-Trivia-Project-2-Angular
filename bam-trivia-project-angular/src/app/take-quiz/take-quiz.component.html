@@ -3,7 +3,8 @@
 <button style="margin-right: 1em" class="btn btn-primary" (click)="startQuiz();" 
 [disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Random Quiz!</button>
 <button class="btn btn-primary" (click)="startRandomQuiz();" 
-[disabled]="questionsAnswered != undefined && questionsAnswered != null">Take Generated Quiz!</button>
+[disabled]="questionsAnswered != undefined && questionsAnswered != null || this.quizService.randomQuiz === null 
+|| this.quizService.randomQuiz === undefined">Take Generated Quiz!</button>
 </div>
 
 <h2 *ngIf="givenQuestion && questionsAnswered < 10">Quiz Question {{  questionsAnswered+1  }}</h2>

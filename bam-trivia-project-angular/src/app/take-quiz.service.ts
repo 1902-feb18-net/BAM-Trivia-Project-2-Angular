@@ -49,7 +49,7 @@ export class TakeQuizService {
     }
   
     updateMaxUserQuizScore(score: number): Observable<number> {
-      return this.http.put<number>(`${environment.apiUrl}/api/Users/UserQuiz`, score, httpOptions)
+      return this.http.put<number>(`${environment.apiUrl}/api/Users/UserQuiz/${score}`, score, httpOptions)
       .pipe(catchError(error => {
         console.log('error:');
         console.log(error);

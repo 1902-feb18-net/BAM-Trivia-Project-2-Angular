@@ -19,7 +19,7 @@ export class QuizComponent implements OnInit {
 
   onSubmit() {
     this.quizService.getRandomQuiz(this.quiz).subscribe(data => {
-      console.log("callback");
+      console.log("generating quiz");
       console.log(data);
       this.quiz = data;
       this.quizService.randomQuiz = this.quiz;
