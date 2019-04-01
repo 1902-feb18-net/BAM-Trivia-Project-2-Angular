@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Quiz } from '../models/quiz';
 import { Review } from '../models/review';
 import { Account } from '../models/account';
-import { QuizService } from '../quiz.service';
+// import { QuizService } from '../quiz.service';
 import { ReviewService } from '../review.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { ReviewService } from '../review.service';
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor(private reviewService: ReviewService, private quizService: QuizService) { }
+  constructor(private reviewService: ReviewService) { }
 
   quizReviews: Review[] = [];
   allReviews: Review[] = [];
@@ -47,7 +47,6 @@ export class ReviewsComponent implements OnInit {
   }
 
   onSubmitReview() {
-    console.log("YAyyy");
     console.log('user quiz id input is: ', this.userQuizIdInput)
     console.log('user rating input is: ', this.userRatingNum)
     if(this.userQuizIdInput <= 0 || this.userRatingNum <= 0 || this.userRatingNum > 10) {
@@ -66,7 +65,6 @@ export class ReviewsComponent implements OnInit {
       this.postUserReview(this.review); 
       this.boolUserReviews = false;
       this.showBUR = "Show User Reviews";
-      this.getUserReviews(this.account);
     }
   }
 
@@ -89,8 +87,8 @@ export class ReviewsComponent implements OnInit {
     this.boolAllReviews = false;
     this.showBUR = this.boolUserReviews ? "Hide User Reviews" : "Show User Reviews";
     this.setZeroForStatistics();
+    this.getUserReviews(this.account);
     if(this.nullUndefinedZeroCheck(this.userReviews)){
-      this.getUserReviews(this.account);
       this.calculateAverage(this.userReviews);
       this.calculateMinMax(this.userReviews);
     }
@@ -116,6 +114,7 @@ export class ReviewsComponent implements OnInit {
   //   }, err => console.log(err));
   // }
 
+  // GET for user reviews
   getUserReviews(account: Account) {
     this.reviewService.getReviewByUser(account).subscribe(data => {
       this.userReviews = data;
@@ -123,16 +122,17 @@ export class ReviewsComponent implements OnInit {
     }, err => console.log(err));
   }
 
+  // User makes a POST for their review
   postUserReview(review: Review) {
     this.reviewService.addUserReview(review).subscribe(data => {
       this.review = review;
-      console.log(this.review)
+      console.log(this.review);
+      this.getUserReviews(this.account);
     }, err => console.log(err));
   }
 
+  // calculate min and max from review array
   calculateMinMax(reviewArray: Review[]) {
-    // this.reviewsMin = Math.min.apply(null, reviewArray);
-    // this.reviewsMax = Math.max.apply(null, reviewArray);
     let min = reviewArray[0].ratings;
     let max = reviewArray[0].ratings;
     reviewArray.forEach((r, i) => {
@@ -145,6 +145,7 @@ export class ReviewsComponent implements OnInit {
     console.log(`min ${this.reviewsMin} and max ${this.reviewsMax}`)
   }
 
+  // calculate average from review array
   calculateAverage(reviewArray: Review[]) {
     let len = reviewArray.length;
     let sum = 0;
@@ -160,6 +161,7 @@ export class ReviewsComponent implements OnInit {
     }
   }
 
+  // initialize some values at start for page
   ngOnInit() {
     if (sessionStorage.getItem('account') !== null) {
       this.account = JSON.parse(sessionStorage.getItem('account'));
