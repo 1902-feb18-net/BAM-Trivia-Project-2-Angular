@@ -63,10 +63,10 @@ export class TakeQuizComponent implements OnInit {
     console.log(data);
     this.questions = data;
     this.givenQuestion = this.questions[0];
-    if (this.chosenQuiz != undefined)
+    if (this.chosenQuiz != undefined && this.chosenQuiz != null)
     this.getAnswers(this.chosenQuiz.id);
     else
-    this.getAnswers(this.quizzes[this.quizIndex].id);
+    this.getAnswers(quiz.id);
     }, err => console.log(err));}
 
     //gets all answers for the questions on the quiz, includes critical functions to set up quiz
@@ -75,8 +75,7 @@ export class TakeQuizComponent implements OnInit {
       console.log(data);
       this.answers = data;
       this.getQuestionAnswers(this.questions[0]);
-
-      this.getCorrectAnswer(this.questionAnswers)
+      this.getCorrectAnswer(this.questionAnswers);
     }, err => console.log(err));
   }
 
@@ -118,11 +117,10 @@ export class TakeQuizComponent implements OnInit {
 
   //runs whenever quiz starts; quiz is picked at random from list
   startQuiz() {
+    console.log(this.quizzes)
     this.quizIndex = Math.floor((Math.random() * this.quizzes.length));
     this.makeUserQuiz(this.quizzes[this.quizIndex]);
     this.getQuestions(this.quizzes[this.quizIndex]);
-    console.log("here are the answers for the question");
-    console.log(this.questionAnswers);
      this.questionsAnswered = 0;
      this.numberOfCorrectAnswers = 0;
      this.quizResults = [];
@@ -146,23 +144,18 @@ export class TakeQuizComponent implements OnInit {
 
   //this runs when an answer is submitted
   submittedAnswer() {
-    console.log("answer was submitted");
     console.log(this.selectedAnswer);
     console.log(this.correctAnswer);
     this.questionsAnswered++;
   //  debugger;
 
-      console.log("answer is not null")
     if(this.checkAnswer(this.selectedAnswer))
     {
       this.numberOfCorrectAnswers++;
-      console.log("answer was correct");
     }
-    console.log('selected answer is')
     console.log(this.selectedAnswer);
     this.sendResult(this.selectedAnswer);
  
-  console.log(`number of correct answers is: ${this.numberOfCorrectAnswers}`)
     if (this.chosenQuiz != undefined && this.questionsAnswered < this.chosenQuiz.maxScore 
       || this.questionsAnswered < this.quizzes[this.quizIndex].maxScore)
     {
@@ -173,25 +166,21 @@ export class TakeQuizComponent implements OnInit {
     }
     else
     {
-      console.log(`${this.numberOfCorrectAnswers} was sent to update the latest userquiz`);
       this.setUserQuizScore(this.numberOfCorrectAnswers);
     }
   }
 
   //this runs when a fill-in-the-blank answer is submitted
   submittedFillAnswer() {
-    console.log(`fill answer was submitted`);
     console.log(this.selectedAnswerString);
     this.questionsAnswered++;
 
     if(this.checkFillAnswer(this.selectedAnswerString))
     {
       this.numberOfCorrectAnswers++;
-      console.log("fill answer was correct");
     }
     this.sendResultString(this.selectedAnswerString);
   
-  console.log(`number of correct answers is: ${this.numberOfCorrectAnswers}`)
 
     if (this.questionsAnswered < 10)
     {
@@ -202,13 +191,11 @@ export class TakeQuizComponent implements OnInit {
     }
     else
     {
-      console.log(`${this.numberOfCorrectAnswers} was sent to update the latest userquiz`);
       this.setUserQuizScore(this.numberOfCorrectAnswers);
     }
   }
 
   setUserQuizScore(score: number){
-    console.log(`Here is the updated score: ${score}`)
     this.takeQuizService.updateMaxUserQuizScore(score).subscribe(data => {
       console.log(data);
       }, err => console.log(err));
@@ -231,7 +218,7 @@ export class TakeQuizComponent implements OnInit {
 
   //this gets a list of all answers associated with a given question
   getQuestionAnswers(question: Questions) {
-
+    //debugger;
     for (var i = 0; i < this.answers.length; i++)
     {
       if (this.answers[i].questionId === question.id)
@@ -246,7 +233,6 @@ export class TakeQuizComponent implements OnInit {
 
   //this checks whether an answer is correct
   checkAnswer(answer: Answer): boolean {
-    console.log("In checkAnswer, answer is: ")
     console.log(answer);
     if (answer === this.correctAnswer)
     {

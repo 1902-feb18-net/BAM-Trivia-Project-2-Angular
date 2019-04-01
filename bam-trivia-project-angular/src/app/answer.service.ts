@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from "rxjs/internal/operators";
+import { catchError } from 'rxjs/internal/operators';
 
 import { Answer } from './models/answer';
 
@@ -13,6 +13,7 @@ export class AnswerService {
   constructor(private http: HttpClient) { }
 
   getAnswers(id: number): Observable<Answer[]> {
+    console.log(`the quiz id is = ${id}`);
     return this.http.get<Answer[]>(`${this.API}/Quizzes/${id}/Answers`)
       .pipe(
         catchError(this.handleError)
@@ -37,7 +38,7 @@ export class AnswerService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
   // can add other crud functionality later like add
 }
