@@ -199,6 +199,7 @@ export class TakeQuizComponent implements OnInit {
   }
 
   setUserQuizScore(score: number){
+    console.log(`Here is the updated score: ${score}`)
     this.takeQuizService.updateMaxUserQuizScore(score);
   }
 
